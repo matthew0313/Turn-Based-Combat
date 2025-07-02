@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0798dbe4d2eda3f49b0ac34c6c13bf99, type: 3}
+  m_Name: Fire Blast
+  m_EditorClassIdentifier: 
+  m_actionName: "\uD30C\uC774\uC5B4 \uBE14\uB798\uC2A4\uD2B8"
+  m_actionDesc: 
+  target: {fileID: 0}
+  damage: 10
+  fireModeMultiplier: 1.5
+  waterModeMultiplier: 0.5
+  triggerName: Blast
+  projectile: {fileID: 7721843488171586950, guid: 049d886958ff8184ea1906c14b9fc39f, type: 3}
+  projectileStartTime:
+    timeMode: 1
+    seconds: 1
+    frames: 60
+  projectileFlyTime:
+    timeMode: 1
+    seconds: 1
+    frames: 60
+  endTime:
+    timeMode: 1
+    seconds: 3
+    frames: 180
+  projectileOffset: {x: 1, y: 0}
+  projectileTravelCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.0063244193
+      outSlope: 0.0063244193
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.99444455
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.624358
+      outSlope: 2.624358
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.061111093
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

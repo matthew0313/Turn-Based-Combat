@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MEC;
+using System.Linq;
 
 [RequireComponent(typeof(BattleManager_UI))]
 public class BattleManager : MonoBehaviour
@@ -138,6 +139,30 @@ public class BattleManager : MonoBehaviour
     }
     public IEnumerable<BattleEntity> GetEnemies(Alliance alliance) => alliance == Alliance.Enemy ? playerSide : enemySide;
     public IEnumerable<BattleEntity> GetAllies(Alliance alliance) => alliance == Alliance.Enemy ? enemySide : playerSide;
+    public void AddAlly(Alliance alliance, BattleEntity entity)
+    {
+        if (GetAllies(alliance).Count() >= maxParticipants) return;
+        if(alliance == Alliance.Enemy)
+        {
+            for(int i = 0; i < maxParticipants; i++)
+            {
+                if (enemySide[i] == null)
+                {
+                    SetEnemySide(i, entity); return;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < maxParticipants; i++)
+            {
+                if (playerSide[i] == null)
+                {
+                    SetPlayerSide(i, entity); return;
+                }
+            }
+        }
+    }
     void Victory()
     {
         Timing.KillCoroutines(progressBattle);

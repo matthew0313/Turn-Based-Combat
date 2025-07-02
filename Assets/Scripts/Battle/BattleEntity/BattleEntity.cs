@@ -76,15 +76,17 @@ public abstract class BattleEntity : MonoBehaviour
     const float weaknessMultiplier = 1.5f, resistMultiplier = 0.5f;
     protected virtual DamageReceivedInfo ProcessDamage(DamageInfo damageInfo)
     {
-        DamageReceivedInfo tmp = new() { receiver = this, damageInfo = damageInfo };
+        DamageReceivedInfo tmp = new() { receiver = this };
+
         if (dead)
         {
             tmp.isNullified = true;
             return tmp;
         }
 
-        if(GetAffinities().TryGetValue(damageInfo.element, out Affinity affinity))
+        if (GetAffinities().TryGetValue(damageInfo.element, out Affinity affinity))
         {
+            Debug.Log($"{damageInfo.element.ToString()}, {affinity}");
             switch (affinity)
             {
                 case Affinity.Weakness:
@@ -95,13 +97,14 @@ public abstract class BattleEntity : MonoBehaviour
                     tmp.isResistHit = true; break;
             }
         }
-        
+
         SetHP(Mathf.Max(hp - damageInfo.amount, 0));
         if (hp <= 0)
         {
             tmp.isFatal = true;
             OnDeath();
         }
+        tmp.damageInfo = damageInfo;
         return tmp;
     }
     readonly int deathID = Animator.StringToHash("Death");

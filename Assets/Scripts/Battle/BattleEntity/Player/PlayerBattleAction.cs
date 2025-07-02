@@ -10,8 +10,10 @@ namespace Player_Battle
         [Header("Player Battle Action")]
         [SerializeField] string m_actionName;
         [SerializeField][TextArea] string m_actionDesc;
+        public string actionName => m_actionName;
+        public string actionDEsc => m_actionDesc;
         public abstract TargetSelection targetSelection { get; }
-        public BattleEntity target;
+        [HideInInspector] public BattleEntity target;
         public abstract IEnumerator<float> Act(Action onFinish, Player_BattleEntity actor);
     }
     [System.Serializable]

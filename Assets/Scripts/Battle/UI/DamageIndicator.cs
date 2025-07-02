@@ -10,6 +10,7 @@ public class DamageIndicator : PooledPrefab<DamageIndicator>
     [SerializeField] CanvasGroup group;
     [SerializeField] Image elementIcon;
     [SerializeField] TMP_Text damageText;
+    [SerializeField] GameObject weaknessHit, resistHit;
 
     [Header("Tween")]
     [SerializeField] float appearTweenDuration;
@@ -20,6 +21,8 @@ public class DamageIndicator : PooledPrefab<DamageIndicator>
         elementIcon.sprite = BattleManager.Instance.UI.GetSprite(info.damageInfo.element);
         elementIcon.gameObject.SetActive(elementIcon.sprite != null);
         damageText.text = info.damageInfo.amount.ToString();
+        weaknessHit.gameObject.SetActive(info.isWeaknessHit);
+        resistHit.gameObject.SetActive(info.isResistHit);
         
         if (appearTween == null) appearTween = group.transform.DOScale(Vector2.one, appearTweenDuration).SetEase(Ease.OutElastic).SetAutoKill(false);
         appearTween.Restart();

@@ -10,6 +10,10 @@ namespace Player_Battle
         [Header("Mode Change")]
         [SerializeField] UnitTime modeChangeTime;
         [SerializeField] UnitTime modeChangeEndTime;
+
+        [Header("Debug")]
+        [SerializeField] PlayerBattleAction nextAction;
+        [SerializeField] BattleEntity nextActionTarget;
         public override float maxHp => PlayerStats.maxHp;
         public override float hp
         {
@@ -27,8 +31,19 @@ namespace Player_Battle
                 yield return Timing.WaitForOneFrame;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    BattleManager.Instance.UI.ShowText("플레이어가 턴을 스킵합니다.");
-                    yield return Timing.WaitForSeconds(1.0f);
+                    if(nextAction == null)
+                    {
+                        BattleManager.Instance.UI.ShowText("플레이어가 턴을 스킵합니다.");
+                        yield return Timing.WaitForSeconds(1.0f);
+                    }
+                    else
+                    {
+                        BattleManager.Instance.UI.ShowText($"플레이어가 {nextAction.actionName}를 사용합니다.");
+                        bool finished = false;
+                        nextAction.target = nextActionTarget;
+                        Timing.RunCoroutine(nextAction.Act(() => finished = true, this));
+                        while (!finished) yield return Timing.WaitForOneFrame;
+                    }
                     break;
                 }
             }

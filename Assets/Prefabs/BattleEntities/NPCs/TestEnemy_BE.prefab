@@ -294,8 +294,10 @@ MonoBehaviour:
   m_maxHp: 100
   affinities:
     table:
-    - element: 1
+    - element: 2
       affinity: 1
+    - element: 3
+      affinity: 2
   attackDamage:
     element: 1
     amount: 10

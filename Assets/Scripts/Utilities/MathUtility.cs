@@ -10,4 +10,8 @@ public static class MathUtility
         tmp.y = 0;
         return tmp;
     }
+    public static Quaternion LookAt(Vector2 from, Vector2 to)
+    {
+        return Quaternion.Euler(0, 0, Mathf.Atan2(to.y - from.y, to.x - from.x) * Mathf.Rad2Deg);
+    }
 }
