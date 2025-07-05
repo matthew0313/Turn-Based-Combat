@@ -10,7 +10,7 @@ public class DamageIndicator : PooledPrefab<DamageIndicator>
     [SerializeField] CanvasGroup group;
     [SerializeField] Image elementIcon;
     [SerializeField] TMP_Text damageText;
-    [SerializeField] GameObject weaknessHit, resistHit;
+    [SerializeField] GameObject weaknessHit, resistHit, blocked, reflected, absorbed;
 
     [Header("Tween")]
     [SerializeField] float appearTweenDuration;
@@ -18,12 +18,24 @@ public class DamageIndicator : PooledPrefab<DamageIndicator>
     Tween appearTween, disappearTween;
     public void Set(DamageReceivedInfo info)
     {
-        elementIcon.sprite = BattleManager.Instance.UI.GetSprite(info.damageInfo.element);
-        elementIcon.gameObject.SetActive(elementIcon.sprite != null);
-        damageText.text = info.damageInfo.amount.ToString();
         weaknessHit.gameObject.SetActive(info.isWeaknessHit);
         resistHit.gameObject.SetActive(info.isResistHit);
-        
+        blocked.gameObject.SetActive(info.isBlocked);
+        reflected.gameObject.SetActive(info.isReflected);
+        absorbed.gameObject.SetActive(info.isAbsorbed);
+        if (!info.isBlocked && !info.isReflected && !info.isAbsorbed)
+        {
+            elementIcon.sprite = BattleManager.Instance.UI.GetSprite(info.damageInfo.element);
+            elementIcon.gameObject.SetActive(elementIcon.sprite != null);
+            damageText.text = info.damageInfo.amount.ToString();
+            damageText.gameObject.SetActive(true);
+        }
+        else
+        {
+            elementIcon.gameObject.SetActive(false);
+            damageText.gameObject.SetActive(false);
+        }
+
         if (appearTween == null) appearTween = group.transform.DOScale(Vector2.one, appearTweenDuration).SetEase(Ease.OutElastic).SetAutoKill(false);
         appearTween.Restart();
 

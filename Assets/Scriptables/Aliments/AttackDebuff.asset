@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c855bdef6851fa45ad083723d78b447, type: 3}
+  m_Name: AttackDebuff
+  m_EditorClassIdentifier: 
+  m_alimentIcon: {fileID: 21300000, guid: 49e445bab20cc3b4ca738fba47220b7b, type: 3}
+  m_applyParticle: {fileID: 757685275405401140, guid: 8c9e63d0669f11a4bbcd8c2391058b13, type: 3}
+  m_applySound:
+    clip: {fileID: 8300000, guid: e5ca2b564f031844c8bb5fbac22ec319, type: 3}
+    volume: 1
+    pitch: 1

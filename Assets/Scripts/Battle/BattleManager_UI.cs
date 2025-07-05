@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MEC;
 using DG.Tweening;
+using Player_Battle;
+using System;
 
 public class BattleManager_UI : MonoBehaviour
 {
@@ -9,17 +11,29 @@ public class BattleManager_UI : MonoBehaviour
     [SerializeField] Sprite physicalSprite;
     [SerializeField] Sprite fireSprite, waterSprite, grassSprite;
 
-    [Header("Damage Indicator")]
+    [Header("Indicators")]
     [SerializeField] DamageIndicator damageIndicatorPrefab;
+    [SerializeField] HealIndicator healIndicatorPrefab;
     [SerializeField] float offsetRange = 1.0f;
 
     [Header("Battle Text")]
     [SerializeField] BattleText battleText;
+
+    [Header("Action Selection")]
+    [SerializeField] ActionCardSet cardSet;
+    [SerializeField] ActionCard[] cards = new ActionCard[BattleManager.cardCount];
+    [SerializeField] TargetMark markPrefab;
     public void IndicateDamage(DamageReceivedInfo info)
     {
         float angle = UnityEngine.Random.Range(0, 360.0f);
         Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * UnityEngine.Random.Range(0, offsetRange);
         damageIndicatorPrefab.Get(info.receiver.transform.position + offset, Quaternion.identity).Set(info);
+    }
+    public void IndicateHeal(HealReceivedInfo info)
+    {
+        float angle = UnityEngine.Random.Range(0, 360.0f);
+        Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * UnityEngine.Random.Range(0, offsetRange);
+        healIndicatorPrefab.Get(info.receiver.transform.position + offset, Quaternion.identity).Set(info);
     }
     public Sprite GetSprite(Element element)
     {
@@ -36,5 +50,48 @@ public class BattleManager_UI : MonoBehaviour
     public void ShowText(string content)
     {
         battleText.ShowText(content);
+    }
+    public void ShowCards()
+    {
+        cardSet.Show();
+    }
+    public void HideCards()
+    {
+        cardSet.Hide();
+    }
+    public void SetCard(int index, PlayerBattleAction battleAction)
+    {
+        cards[index].Set(battleAction);
+    }
+    ActionCard m_selected = null;
+    ActionCard selected
+    {
+        get => m_selected;
+        set
+        {
+            if (m_selected != value)
+            {
+                if (m_selected != null) m_selected.OnDeselect();
+                m_selected = value;
+                if (m_selected != null) m_selected.OnSelect();
+            }
+        }
+    }
+    public void SelectCard(int index)
+    {
+        selected = cards[index];
+    }
+    public void DeselectCard()
+    {
+        selected = null;
+    }
+    List<TargetMark> marks = new();
+    public void ShowMark(BattleEntity entity)
+    {
+        marks.Add(markPrefab.Get(entity.transform.position, Quaternion.identity));
+    }
+    public void HideMarks()
+    {
+        foreach (var i in marks) i.Release(); marks.Clear();
     }
 }

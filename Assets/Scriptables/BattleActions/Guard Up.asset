@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08f4fe96fd96334db8bc043e67ccf2e, type: 3}
+  m_Name: Guard Up
+  m_EditorClassIdentifier: 
+  m_actionIcon: {fileID: 0}
+  m_actionName: "\uAC00\uB4DC \uC5C5"
+  m_actionDesc: "\uBAA8\uB4E0 \uB3D9\uB8CC\uB4E4\uC5D0\uAC8C +20% \uBC29\uC5B4\uB825
+    \uBC84\uD504 3\uD134\uAC04 \uBD80\uC5EC"
+  target: {fileID: 0}
+  defenseMultiplier: 1.2
+  defenseTurns: 3
+  triggerName: Cast
+  buffApplyTime:
+    timeMode: 1
+    seconds: 1
+    frames: 60
+  endTime:
+    timeMode: 1
+    seconds: 2
+    frames: 120

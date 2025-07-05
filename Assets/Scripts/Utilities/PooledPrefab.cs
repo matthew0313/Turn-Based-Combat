@@ -1,16 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class PooledPrefab<T> : MonoBehaviour where T : PooledPrefab<T>
 {
-    List<T> pool;
+    static Dictionary<GameObject, List<T>> pools = null;
+    GameObject prefabOrigin;
     bool instantiated = false;
     public bool released { get; private set; } = false;
     protected virtual T Create()
     {
         T tmp = Instantiate(this as T);
-        tmp.pool = pool;
         tmp.instantiated = true;
+        tmp.prefabOrigin = gameObject;
         tmp.OnCreate();
         return tmp;
     }
@@ -20,12 +22,13 @@ public abstract class PooledPrefab<T> : MonoBehaviour where T : PooledPrefab<T>
         if (instantiated) return null;
 
         T tmp;
-        if (pool == null) pool = new();
-        if (pool.Count == 0) tmp = Create();
+        if (pools == null) pools = new();
+        if (!pools.ContainsKey(gameObject)) pools.Add(gameObject, new());
+        if (pools[gameObject].Count == 0) tmp = Create();
         else
         {
-            tmp = pool[0];
-            pool.RemoveAt(0);
+            tmp = pools[gameObject][0];
+            pools[gameObject].RemoveAt(0);
             tmp.released = false;
         }
         tmp.OnGet();
@@ -46,13 +49,13 @@ public abstract class PooledPrefab<T> : MonoBehaviour where T : PooledPrefab<T>
         if (released) return;
 
         OnRelease();
-        pool.Add(this as T);
+        pools[prefabOrigin].Add(this as T);
         released = true;
     }
     protected virtual void OnGet() => gameObject.SetActive(true);
     protected virtual void OnRelease() => gameObject.SetActive(false);
     private void OnDestroy()
     {
-        if (released) pool.Remove(this as T);
+        if (released) pools[prefabOrigin].Remove(this as T);
     }
 }

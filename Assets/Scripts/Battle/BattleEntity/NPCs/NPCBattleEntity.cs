@@ -16,7 +16,6 @@ public abstract class NPCBattleEntity : BattleEntity
     {
         base.Set(battlePosition, alliance);
         SetHP(maxHp);
-        Debug.Log(affinities.table.Count);
     }
     protected virtual bool removeOnDeath => true;
     protected override void OnDeath()
@@ -63,10 +62,12 @@ public class AffinityTable_Drawer : PropertyDrawer
         {
             position.y += foldoutSize;
             position.height = rowSize;
-            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 1.0f / 5.0f, width = position.width / 5.0f }, new GUIContent("None"));
-            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 2.0f / 5.0f, width = position.width / 5.0f }, new GUIContent("Weakness"));
-            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 3.0f / 5.0f, width = position.width / 5.0f }, new GUIContent("Resist"));
-            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 4.0f / 5.0f, width = position.width / 5.0f }, new GUIContent("Block"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 1.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("None"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 2.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("Weakness"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 3.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("Resist"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 4.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("Block"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 5.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("Reflect"));
+            EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 6.0f / 7.0f, width = position.width / 7.0f }, new GUIContent("Absorb"));
 
             SerializedProperty tableProperty = property.FindPropertyRelative("table");
             int tableSize = tableProperty.arraySize;
@@ -92,27 +93,39 @@ public class AffinityTable_Drawer : PropertyDrawer
                 Affinity affinity = tmp == null ? Affinity.None : tmp.affinity;
 
                 EditorGUI.LabelField(new Rect(position) { x = position.x + position.width * 0.0f / 5.0f, width = position.width / 5.0f }, new GUIContent(element.ToString()));
-                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 1.0f / 5.0f, width = radioWidth }, affinity == Affinity.None) && affinity != Affinity.None)
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 1.0f / 7.0f, width = radioWidth }, affinity == Affinity.None) && affinity != Affinity.None)
                 {
                     if (tmp != null) table.Remove(tmp);
                     changed = true;
                 }
-                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 2.0f / 5.0f, width = radioWidth }, affinity == Affinity.Weakness) && affinity != Affinity.Weakness)
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 2.0f / 7.0f, width = radioWidth }, affinity == Affinity.Weakness) && affinity != Affinity.Weakness)
                 {
                     if (tmp != null) tmp.affinity = Affinity.Weakness;
                     else table.Add(new() { element = element, affinity = Affinity.Weakness });
                     changed = true;
                 }
-                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 3.0f / 5.0f, width = radioWidth }, affinity == Affinity.Resist) && affinity != Affinity.Resist)
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 3.0f / 7.0f, width = radioWidth }, affinity == Affinity.Resist) && affinity != Affinity.Resist)
                 {
                     if (tmp != null) tmp.affinity = Affinity.Resist;
                     else table.Add(new() { element = element, affinity = Affinity.Resist });
                     changed = true;
                 }
-                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 4.0f / 5.0f, width = radioWidth }, affinity == Affinity.Block) && affinity != Affinity.Block)
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 4.0f / 7.0f, width = radioWidth }, affinity == Affinity.Block) && affinity != Affinity.Block)
                 {
                     if (tmp != null) tmp.affinity = Affinity.Block;
                     else table.Add(new() { element = element, affinity = Affinity.Block });
+                    changed = true;
+                }
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 5.0f / 7.0f, width = radioWidth }, affinity == Affinity.Reflect) && affinity != Affinity.Reflect)
+                {
+                    if (tmp != null) tmp.affinity = Affinity.Reflect;
+                    else table.Add(new() { element = element, affinity = Affinity.Reflect });
+                    changed = true;
+                }
+                if (EditorGUI.Toggle(new Rect(position) { x = position.x + position.width * 6.0f / 7.0f, width = radioWidth }, affinity == Affinity.Absorb) && affinity != Affinity.Absorb)
+                {
+                    if (tmp != null) tmp.affinity = Affinity.Absorb;
+                    else table.Add(new() { element = element, affinity = Affinity.Absorb });
                     changed = true;
                 }
             }

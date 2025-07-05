@@ -13,6 +13,8 @@ namespace Player_Battle
         [SerializeField] float damage;
         [SerializeField] float fireModeMultiplier = 1.5f;
         [SerializeField] float waterModeMultiplier = 0.5f;
+        [SerializeField] float burnDamage = 5.0f;
+        [SerializeField] int burnTurns = 3;
 
         [Header("Visuals")]
         [SerializeField] string triggerName;
@@ -28,12 +30,9 @@ namespace Player_Battle
         {
             triggerID = Animator.StringToHash(triggerName);
         }
-        public override IEnumerator<float> Act(Action onFinish, Player_BattleEntity actor)
+        public override IEnumerator<float> Act(BE_Player actor)
         {
-            if (target == null)
-            {
-                onFinish?.Invoke(); yield break;
-            }
+            if (target == null) yield break;
 
             actor.anim.SetTrigger(triggerID);
             yield return Timing.WaitForSeconds(projectileStartTime);
@@ -46,20 +45,19 @@ namespace Player_Battle
                 finished = true;
                 tmp.Explode();
 
-                DamageInfo damage = new() { amount = this.damage, element = Element.Fire };
-                if (actor.elementMode == PlayerElementMode.Fire) damage.amount *= fireModeMultiplier;
+                DamageInfo damage = new() { amount = this.damage * actor.attackMultiplier, element = Element.Fire, attacker = actor };
+                if (actor.elementMode == PlayerElementMode.Fire)
+                {
+                    damage.amount *= fireModeMultiplier;
+                    damage.aliment = new Aliment_Burn(burnDamage, burnTurns);
+                }
                 if (actor.elementMode == PlayerElementMode.Water) damage.amount *= waterModeMultiplier;
                 target.GetDamage(damage);
             }).SetEase(projectileTravelCurve);
             while (!finished) yield return Timing.WaitForOneFrame;
 
             yield return Timing.WaitForSeconds(endTime - projectileStartTime - projectileFlyTime);
-
-            finished = false;
-            Timing.RunCoroutine(actor.ChangeMode(() => finished = true, PlayerElementMode.Fire));
-            while(!finished) yield return Timing.WaitForOneFrame;
-
-            onFinish?.Invoke();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(actor.ChangeMode(PlayerElementMode.Fire)));
         }
     }
 }

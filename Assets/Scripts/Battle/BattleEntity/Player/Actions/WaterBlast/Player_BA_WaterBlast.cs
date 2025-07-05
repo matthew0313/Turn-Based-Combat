@@ -12,7 +12,9 @@ namespace Player_Battle
         [Header("Stats")]
         [SerializeField] float damage;
         [SerializeField] float waterModeMultiplier = 1.5f;
-        [SerializeField] float fireModeMultiplier = 0.5f;
+        [SerializeField] float grassModeMultiplier = 0.5f;
+        [SerializeField] float defenseMultiplierAdd = 0.2f;
+        [SerializeField] int defenseBuffTurns = 2;
 
         [Header("Visuals")]
         [SerializeField] string triggerName;
@@ -28,12 +30,9 @@ namespace Player_Battle
         {
             triggerID = Animator.StringToHash(triggerName);
         }
-        public override IEnumerator<float> Act(Action onFinish, Player_BattleEntity actor)
+        public override IEnumerator<float> Act(BE_Player actor)
         {
-            if (target == null)
-            {
-                onFinish?.Invoke(); yield break;
-            }
+            if (target == null) yield break;
 
             actor.anim.SetTrigger(triggerID);
             yield return Timing.WaitForSeconds(projectileStartTime);
@@ -46,20 +45,19 @@ namespace Player_Battle
                 finished = true;
                 tmp.Explode();
 
-                DamageInfo damage = new() { amount = this.damage, element = Element.Water };
-                if (actor.elementMode == PlayerElementMode.Water) damage.amount *= waterModeMultiplier;
-                if (actor.elementMode == PlayerElementMode.Fire) damage.amount *= fireModeMultiplier;
+                DamageInfo damage = new() { amount = this.damage * actor.attackMultiplier, element = Element.Water, attacker = actor };
+                if (actor.elementMode == PlayerElementMode.Water)
+                {
+                    damage.amount *= waterModeMultiplier;
+                    actor.ApplyAliment(new Aliment_DefenseBuff(defenseMultiplierAdd, defenseBuffTurns));
+                }
+                if (actor.elementMode == PlayerElementMode.Grass) damage.amount *= grassModeMultiplier;
                 target.GetDamage(damage);
             }).SetEase(projectileTravelCurve);
             while (!finished) yield return Timing.WaitForOneFrame;
 
             yield return Timing.WaitForSeconds(endTime - projectileStartTime - projectileFlyTime);
-
-            finished = false;
-            Timing.RunCoroutine(actor.ChangeMode(() => finished = true, PlayerElementMode.Water));
-            while(!finished) yield return Timing.WaitForOneFrame;
-
-            onFinish?.Invoke();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(actor.ChangeMode(PlayerElementMode.Water)));
         }
     }
 }
