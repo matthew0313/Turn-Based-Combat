@@ -7,7 +7,7 @@ namespace Player_Battle
 {
     public class WaterBlast_Projectile : PooledPrefab<WaterBlast_Projectile>
     {
-        [SerializeField] PooledParticle explodeParticle;
+        [SerializeField] PooledEffect explodeParticle;
         public void Explode()
         {
             explodeParticle.Get(transform.position, Quaternion.identity);

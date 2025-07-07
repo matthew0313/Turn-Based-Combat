@@ -16,9 +16,10 @@ MonoBehaviour:
   m_actionName: "\uAC00\uB4DC \uB2E4\uC6B4"
   m_actionDesc: "\uBAA8\uB4E0 \uC801\uB4E4\uC5D0\uAC8C -20% \uBC29\uC5B4\uB825 \uB514\uBC84\uD504
     3\uD134\uAC04 \uBD80\uC5EC"
+  m_rarity: 1
   target: {fileID: 0}
-  defenseMultiplier: 0.8
-  defenseTurns: 3
+  defenseMultiplierSubtract: 0.2
+  defenseDebuffTurns: 3
   triggerName: Cast
   debuffApplyTime:
     timeMode: 1

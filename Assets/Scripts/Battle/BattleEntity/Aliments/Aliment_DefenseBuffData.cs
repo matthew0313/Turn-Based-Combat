@@ -8,9 +8,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DefenseBuff", menuName = "Scriptables/Aliments/DefenseBuff")]
 public class Aliment_DefenseBuffData : AlimentData
 {
-    [SerializeField] PooledParticle m_applyParticle;
+    [SerializeField] PooledEffect m_applyParticle;
     [SerializeField] Sound m_applySound;
-    public PooledParticle applyParticle => m_applyParticle;
+    public PooledEffect applyParticle => m_applyParticle;
     public Sound applySound => m_applySound;
 }
 public class Aliment_DefenseBuff : Aliment, IAlimentTextDisplayed

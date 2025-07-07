@@ -17,6 +17,7 @@ MonoBehaviour:
   m_actionDesc: "\uD604\uC7AC \uC6D0\uC18C \uBAA8\uB4DC\uC5D0 \uB9DE\uB294 \uC815\uB839\uC744
     \uC18C\uD658\uD569\uB2C8\uB2E4. \uBB34\uC18D\uC131 \uC0C1\uD0DC\uC5D0\uC120 \uC0AC\uC6A9\uD560
     \uC218 \uC5C6\uC2B5\uB2CC\uB2E4."
+  m_rarity: 2
   target: {fileID: 0}
   fireSpirit: {fileID: 231378017288068961, guid: 91f3e97dfbb737b48aa1ad7bd910b4c0, type: 3}
   waterSpirit: {fileID: 7132737334881537871, guid: e858325ab715b8f48a155ab6c752f956, type: 3}

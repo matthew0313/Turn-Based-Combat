@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 291636a4ec8b4124d8831b9c954bd32e, type: 3}
+  m_Name: Empty Slash
+  m_EditorClassIdentifier: 
+  m_actionIcon: {fileID: 0}
+  m_actionName: "\uACF5\uD5C8 \uCC38\uACA9"
+  m_actionDesc: "\uB2E8\uC77C \uC801\uC5D0\uAC8C <color=#646464>5 \uBB3C\uB9AC \uB300\uBBF8\uC9C0</color>\uB97C
+    3\uBC88 \uAC00\uD569\uB2C8\uB2E4.\n<color=#646464>\uBB34\uC18D\uC131 \uBAA8\uB4DC</color>:
+    +20% \uB300\uBBF8\uC9C0"
+  target: {fileID: 0}
+  damagePerSlash: 5
+  noModeMultiplier: 1.2
+  triggerName: Slash
+  slashEffect: {fileID: 2954168794218691878, guid: caee855425f838b44805a0e05a6b438e, type: 3}
+  startUp:
+    timeMode: 1
+    seconds: 1
+    frames: 60
+  slashInterval:
+    timeMode: 0
+    seconds: 0.1
+    frames: 6
+  slashDamageDelay:
+    timeMode: 0
+    seconds: 1.2
+    frames: 72
+  endTime:
+    timeMode: 1
+    seconds: 3
+    frames: 180
+  slashSound:
+    clip: {fileID: 8300000, guid: a6c34e986ff854e4d96dd704623c9bd1, type: 3}
+    volume: 1
+    pitch: 1

@@ -223,8 +223,9 @@ GameObject:
   - component: {fileID: 8246366167243136600}
   - component: {fileID: 7944191694375507650}
   - component: {fileID: 8614170600361975666}
+  - component: {fileID: 1500899685108548623}
   m_Layer: 5
-  m_Name: Card1
+  m_Name: ActionCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207199bec4133044b9360e38888e1757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1500899685108548623}
   rectTransform: {fileID: 6994427400082433120}
   tweenPivot: {x: 0.5, y: -0.8}
   tweenTime: 0.25
@@ -307,6 +309,28 @@ MonoBehaviour:
   actionIcon: {fileID: 7182046111469109247}
   actionText: {fileID: 2024112720617111992}
   actionDescText: {fileID: 8280055684750752850}
+--- !u!95 &1500899685108548623
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6558530781209712125}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25cf7be1a048e174caf1f6570fd00257, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6838050326569907739
 GameObject:
   m_ObjectHideFlags: 0

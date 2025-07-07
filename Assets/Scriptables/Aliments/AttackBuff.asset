@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackBuff
   m_EditorClassIdentifier: 
   m_alimentIcon: {fileID: 21300000, guid: efb462e8e81f84b4ca3bbb58589d9b0c, type: 3}
-  m_applyParticle: {fileID: 4833914658404661424, guid: e3858a690db47dd43b8945ad51e152bd, type: 3}
+  m_applyParticle: {fileID: 6479807319999428239, guid: e3858a690db47dd43b8945ad51e152bd, type: 3}
   m_applySound:
     clip: {fileID: 8300000, guid: f9e40acb15544814fbc6c2991e7a850a, type: 3}
     volume: 1

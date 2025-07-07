@@ -25,7 +25,9 @@ namespace AudioManagement
 
         readonly Pooler<AudioSource> audioSourcePool = new(() =>
         {
-            var tmp = new GameObject() { hideFlags = HideFlags.HideInHierarchy }.AddComponent<AudioSource>();
+            var tmp = new GameObject().AddComponent<AudioSource>();
+            tmp.loop = false;
+            tmp.playOnAwake = false;
             DontDestroyOnLoad(tmp);
             return tmp;
         }, 2000);
@@ -33,12 +35,18 @@ namespace AudioManagement
 
         PlayingAudio music;
         public event Action<PlayingAudio> onMusicChange;
+        bool paused = false;
+
+        private void OnApplicationPause(bool pause)
+        {
+            paused = pause;
+        }
         private void Update()
         {
             foreach (var i in playing)
             {
                 i.UpdateVolume();
-                if (!i.source.isPlaying)
+                if (!paused && !i.source.isPlaying)
                 {
                     i.Expire();
                     removeQueue.Add(i);
@@ -50,6 +58,7 @@ namespace AudioManagement
         public PlayingAudio PlaySound(Sound sound, VolumeGroup volumeGroup = VolumeGroup.None)
         {
             PlayingAudio tmp = new(sound, audioSourcePool.GetObject(), volumeGroup);
+            tmp.source.loop = false;
             tmp.Play();
             playing.Add(tmp);
             return tmp;

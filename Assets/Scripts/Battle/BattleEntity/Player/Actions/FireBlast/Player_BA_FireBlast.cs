@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AudioManagement;
 using DG.Tweening;
 using MEC;
 using UnityEngine;
@@ -22,6 +23,10 @@ namespace Player_Battle
         [SerializeField] UnitTime projectileStartTime, projectileFlyTime, endTime;
         [SerializeField] Vector2 projectileOffset;
         [SerializeField] AnimationCurve projectileTravelCurve;
+
+        [Header("SFX")]
+        [SerializeField] Sound blastFireSound;
+        [SerializeField] Sound blastExplodeSound;
         public override TargetSelection targetSelection => TargetSelection.SingleEnemy;
 
 
@@ -39,11 +44,13 @@ namespace Player_Battle
 
             Vector2 start = (Vector2)actor.transform.position + projectileOffset;
             var tmp = projectile.Get(start, MathUtility.LookAt(start, target.transform.position));
+            AudioManager.Instance.PlaySound(blastFireSound);
             bool finished = false;
             tmp.transform.DOMove(target.transform.position, projectileFlyTime).OnComplete(() =>
             {
                 finished = true;
                 tmp.Explode();
+                AudioManager.Instance.PlaySound(blastExplodeSound);
 
                 DamageInfo damage = new() { amount = this.damage * actor.attackMultiplier, element = Element.Fire, attacker = actor };
                 if (actor.elementMode == PlayerElementMode.Fire)

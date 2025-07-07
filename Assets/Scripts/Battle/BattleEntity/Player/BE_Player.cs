@@ -56,11 +56,6 @@ namespace Player_Battle
                 BattleManager.Instance.UI.ShowText($"플레이어가 {nextAction.actionName}를 사용합니다.");
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(nextAction.Act(this)));
             }
-            else
-            {
-                BattleManager.Instance.UI.ShowText("플레이어가 턴을 스킵합니다.");
-                yield return Timing.WaitForSeconds(1.0f);
-            }
         }
         readonly int changeModeID = Animator.StringToHash("ChangeMode");
         readonly int modeID = Animator.StringToHash("Mode");

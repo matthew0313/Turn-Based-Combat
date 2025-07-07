@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefenseDebuff
   m_EditorClassIdentifier: 
   m_alimentIcon: {fileID: 21300000, guid: 151d2d9ef64ba9742b1015f58a330f3c, type: 3}
-  m_applyParticle: {fileID: 757685275405401140, guid: 5c39fc823efd13d4895980c131522e00, type: 3}
+  m_applyParticle: {fileID: 6458806992117784333, guid: 5c39fc823efd13d4895980c131522e00, type: 3}
   m_applySound:
     clip: {fileID: 8300000, guid: e5ca2b564f031844c8bb5fbac22ec319, type: 3}
     volume: 1

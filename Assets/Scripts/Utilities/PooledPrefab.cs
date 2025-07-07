@@ -54,7 +54,7 @@ public abstract class PooledPrefab<T> : MonoBehaviour where T : PooledPrefab<T>
     }
     protected virtual void OnGet() => gameObject.SetActive(true);
     protected virtual void OnRelease() => gameObject.SetActive(false);
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (released) pools[prefabOrigin].Remove(this as T);
     }

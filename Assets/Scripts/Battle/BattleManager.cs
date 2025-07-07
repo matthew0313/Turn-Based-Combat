@@ -33,7 +33,7 @@ public class BattleManager : MonoBehaviour
     public Aliment_AttackBuffData attackBuffData => m_attackBuffData;
     public Aliment_AttackDebuffData attackDebuffData => m_attackDebuffData;
 
-    [Header("Sounds")]
+    [Header("SFX")]
     [SerializeField] Sound cardSwitchSound;
     [SerializeField] Sound targetSwitchSound, confirmSound, cancelSound, invalidSound;
 
@@ -44,7 +44,11 @@ public class BattleManager : MonoBehaviour
     private void Awake()
     {
         UI = GetComponent<BattleManager_UI>();
-        if (debug) InitiateBattle(battleData);
+        if (debug)
+        {
+            GlobalManager.Instance.playerStats.hp = GlobalManager.Instance.playerStats.maxHp;
+            InitiateBattle(battleData);
+        }
     }
 
     public readonly BattleEntity[] playerSide = new BattleEntity[maxParticipants], enemySide = new BattleEntity[maxParticipants];
@@ -191,16 +195,41 @@ public class BattleManager : MonoBehaviour
     public const int cardCount = 3;
     int selectedCardIndex = 0;
     readonly PlayerBattleAction[] battleActions = new PlayerBattleAction[cardCount];
+
+    const float legendaryChance = 5.0f, rareChance = 20.0f;
     public void SelectPlayerAction(BE_Player actor, Action<PlayerBattleAction> onFinish)
     {
+        Timing.RunCoroutine(SetCards(actor, onFinish));
+    }
+    IEnumerator<float> SetCards(BE_Player actor, Action<PlayerBattleAction> onFinish)
+    {
+        for (int i = 0; i < cardCount; i++)
+        {
+            float rand = UnityEngine.Random.Range(0, 100.0f);
+            battleActions[i] = null;
+            if (rand <= legendaryChance)
+            {
+                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Legendary);
+            }
+            if (battleActions[i] == null && rand <= legendaryChance + rareChance)
+            {
+                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Rare);
+            }
+            if (battleActions[i] == null)
+            {
+                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Common);
+            }
+            if (battleActions[i] == null)
+            {
+                UI.ShowText("액션이 없어 턴을 스킵합니다.");
+                yield return Timing.WaitForSeconds(1.0f);
+                onFinish?.Invoke(null); yield break;
+            }
+            UI.SetCard(i, battleActions[i]);
+        }
         UI.ShowCards();
         selectedCardIndex = 0;
         UI.SelectCard(0);
-        for (int i = 0; i < cardCount; i++)
-        {
-            battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => true);
-            UI.SetCard(i, battleActions[i]);
-        }
         Timing.RunCoroutine(SelectCard(actor, onFinish));
     }
     IEnumerator<float> SelectCard(BE_Player actor, Action<PlayerBattleAction> onFinish)
@@ -210,13 +239,15 @@ public class BattleManager : MonoBehaviour
             yield return Timing.WaitForOneFrame;
             if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && selectedCardIndex < cardCount - 1)
             {
+                selectedCardIndex++;
                 AudioManager.Instance.PlaySound(cardSwitchSound);
-                UI.SelectCard(++selectedCardIndex);
+                UI.SelectCard(selectedCardIndex);
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) && selectedCardIndex > 0)
+            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && selectedCardIndex > 0)
             {
+                selectedCardIndex--;
                 AudioManager.Instance.PlaySound(cardSwitchSound);
-                UI.SelectCard(--selectedCardIndex);
+                UI.SelectCard(selectedCardIndex);
             }
             if (Input.GetKeyDown(KeyCode.Return) && selectedCardIndex != -1)
             {
@@ -228,7 +259,10 @@ public class BattleManager : MonoBehaviour
                 AudioManager.Instance.PlaySound(confirmSound);
                 UI.HideCards();
                 UI.DeselectCard();
-                onFinish?.Invoke(null); yield break;
+                UI.ShowText("플레이어가 턴을 스킵합니다.");
+                yield return Timing.WaitForSeconds(1.0f);
+                onFinish?.Invoke(null);
+                yield break;
             }
         }
     }

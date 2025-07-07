@@ -34,7 +34,7 @@ public class BE_GrassSpirit : NPCBattleEntity
         anim.SetTrigger(attackID);
         BattleManager.Instance.UI.ShowText($"{entityName}가 공격합니다.");
         yield return Timing.WaitForSeconds(attackTime);
-        target.GetDamage(new() { attacker = this, element = Element.Fire, amount = attackDamage * attackMultiplier });
+        target.GetDamage(new() { attacker = this, element = Element.Grass, amount = attackDamage * attackMultiplier });
         yield return Timing.WaitForSeconds(attackEndTime - attackTime);
     }
     IEnumerator<float> Bless(BattleEntity target)

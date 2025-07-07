@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefenseBuff
   m_EditorClassIdentifier: 
   m_alimentIcon: {fileID: 21300000, guid: cbc59e5f363e93d4a9b5925fb3af198b, type: 3}
-  m_applyParticle: {fileID: 4833914658404661424, guid: ad7fc9b396c861d4095dee74fcdc9b72, type: 3}
+  m_applyParticle: {fileID: 8760899130876746898, guid: ad7fc9b396c861d4095dee74fcdc9b72, type: 3}
   m_applySound:
     clip: {fileID: 8300000, guid: f9e40acb15544814fbc6c2991e7a850a, type: 3}
     volume: 1
