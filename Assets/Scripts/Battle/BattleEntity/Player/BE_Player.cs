@@ -8,9 +8,8 @@ namespace Player_Battle
 {
     public class BE_Player : BattleEntity
     {
-        [Header("Ally Summon")]
-        [SerializeField] UnitTime summonTime;
-        [SerializeField] UnitTime summonEndTime;
+        [Header("Summon Ally")]
+        [SerializeField] Player_BA_SummonAlly summonAllyAction;
 
         [Header("Mode Change")]
         [SerializeField] UnitTime modeChangeTime;
@@ -26,17 +25,19 @@ namespace Player_Battle
             protected set => GlobalManager.Instance.playerStats.hp = value;
         }
         public PlayerElementMode elementMode { get; private set; } = PlayerElementMode.None;
-
-        readonly int summonID = Animator.StringToHash("Summon");
+        public readonly List<BattleEntity> alliesAvailable = new();
         public override IEnumerator<float> OnBattleStart()
         {
-            if (GlobalManager.Instance.playerStats.unlockedAllies.Count <= 0 || BattleManager.Instance.GetAllies(Alliance.Player).Count() >= BattleManager.maxParticipants) yield break;
-
-            anim.SetTrigger(summonID);
-            BattleManager.Instance.UI.ShowText("플레이어가 랜덤한 동료를 소환합니다.");
-            yield return Timing.WaitForSeconds(summonTime);
-            BattleManager.Instance.AddAlly(Alliance.Player, GlobalManager.Instance.playerStats.unlockedAllies.SelectRandom(item => true));
-            yield return Timing.WaitForSeconds(summonEndTime - summonTime);
+            foreach (var i in GlobalManager.Instance.playerStats.unlockedAllies) alliesAvailable.Add(i);
+            if (summonAllyAction.CheckRequirements(this, out string falseReason))
+            {
+                yield return Timing.WaitUntilDone(Timing.RunCoroutine(summonAllyAction.Act(this)));
+            }
+            else
+            {
+                BattleManager.Instance.UI.ShowText(falseReason);
+                yield return Timing.WaitForSeconds(1.0f);
+            }
         }
         protected override IEnumerator<float> OnTurn()
         {

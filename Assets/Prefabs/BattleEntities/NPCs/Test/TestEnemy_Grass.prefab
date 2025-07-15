@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_anim: {fileID: 7839659907159916110}
-  m_entityName: TestEnemy
+  m_entityName: "\uD480\uC18D\uC131 \uD14C\uC2A4\uD2B8 \uC801"
   m_rotator: {fileID: 2862627128942756084}
   attackMultiplier: 1
   defenseMultiplier: 1

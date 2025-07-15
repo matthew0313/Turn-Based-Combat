@@ -45,7 +45,7 @@ namespace Player_Battle
                 falseReason = "사용 조건을 충족하지 못했습니다.";
                 return false;
             }
-            if(BattleManager.Instance.GetAllies(Alliance.Player).Count() >= BattleManager.maxParticipants)
+            if(BattleManager.Instance.GetAllies(Alliance.Player).Count() >= BattleManager.maxPlayerSide)
             {
                 falseReason = "소환할 공간이 없습니다.";
                 return false;

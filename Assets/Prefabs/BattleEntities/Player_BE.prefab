@@ -319,14 +319,7 @@ MonoBehaviour:
   attackMultiplier: 1
   defenseMultiplier: 1
   isStunned: 0
-  summonTime:
-    timeMode: 1
-    seconds: 1
-    frames: 60
-  summonEndTime:
-    timeMode: 1
-    seconds: 2
-    frames: 120
+  summonAllyAction: {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
   modeChangeTime:
     timeMode: 1
     seconds: 0.5

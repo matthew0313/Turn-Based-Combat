@@ -4,6 +4,8 @@ using MEC;
 using DG.Tweening;
 using Player_Battle;
 using System;
+using System.Runtime.InteropServices;
+using UnityEngine.UI;
 
 public class BattleManager_UI : MonoBehaviour
 {
@@ -23,6 +25,22 @@ public class BattleManager_UI : MonoBehaviour
     [SerializeField] ActionCardSet cardSet;
     [SerializeField] ActionCard[] cards = new ActionCard[BattleManager.cardCount];
     [SerializeField] TargetMark markPrefab;
+
+    [Header("Fast Play")]
+    [SerializeField] GameObject fastPlayEffect;
+    [SerializeField] Image fastPlayEffectTop, fastPlayEffectBottom;
+    [SerializeField] float scrollSpeed = 2.0f;
+    readonly int scrollID = Shader.PropertyToID("_Scroll");
+    float scroll = 0.0f;
+    private void Update()
+    {
+        if (isFastPlaying)
+        {
+            scroll += Time.unscaledDeltaTime * scrollSpeed;
+            fastPlayEffectTop.material.SetFloat(scrollID, scroll);
+            fastPlayEffectBottom.material.SetFloat(scrollID, scroll);
+        }
+    }
     public void IndicateDamage(DamageReceivedInfo info)
     {
         float angle = UnityEngine.Random.Range(0, 360.0f);
@@ -63,27 +81,26 @@ public class BattleManager_UI : MonoBehaviour
     {
         cards[index].Set(battleAction);
     }
-    ActionCard m_selected = null;
-    ActionCard selected
+    ActionCard m_selectedCard = null;
+    ActionCard selectedCard
     {
-        get => m_selected;
         set
         {
-            if (m_selected != value)
+            if (m_selectedCard != value)
             {
-                if (m_selected != null) m_selected.OnDeselect();
-                m_selected = value;
-                if (m_selected != null) m_selected.OnSelect();
+                if (m_selectedCard != null) m_selectedCard.OnDeselect();
+                m_selectedCard = value;
+                if (m_selectedCard != null) m_selectedCard.OnSelect();
             }
         }
     }
     public void SelectCard(int index)
     {
-        selected = cards[index];
+        selectedCard = cards[index];
     }
     public void DeselectCard()
     {
-        selected = null;
+        selectedCard = null;
     }
     List<TargetMark> marks = new();
     public void ShowMark(BattleEntity entity)
@@ -93,5 +110,11 @@ public class BattleManager_UI : MonoBehaviour
     public void HideMarks()
     {
         foreach (var i in marks) i.Release(); marks.Clear();
+    }
+    bool isFastPlaying = false;
+    public void ToggleFastPlay(bool fastPlay)
+    {
+        fastPlayEffect.SetActive(fastPlay);
+        isFastPlaying = fastPlay;
     }
 }

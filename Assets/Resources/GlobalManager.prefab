@@ -128,6 +128,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: aa9c3c03511f3c844b94d04c3c0ab018, type: 2}
     - {fileID: 11400000, guid: 11f3d9a01f6ad4942bbe62e8740625e1, type: 2}
     - {fileID: 11400000, guid: e996f03d9a1644d46b2c52ff1ed6c835, type: 2}
+    - {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
     unlockedAllies:
     - {fileID: 4519304254923265912, guid: abd6239a39a1bd0429c4576db5dc09d0, type: 3}
     - {fileID: 4519304254923265912, guid: d7c8ceff75a11d74982e1a54c23ed818, type: 3}

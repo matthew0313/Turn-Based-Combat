@@ -17,22 +17,6 @@ public abstract class NPCBattleEntity : BattleEntity
         base.Set(battlePosition, alliance);
         SetHP(maxHp);
     }
-    protected virtual bool removeOnDeath => true;
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        if (removeOnDeath)
-        {
-            if (alliance == Alliance.Player)
-            {
-                BattleManager.Instance.playerSide[battlePosition] = null;
-            }
-            else
-            {
-                BattleManager.Instance.enemySide[battlePosition] = null;
-            }
-        }
-    }
     readonly Dictionary<Element, Affinity> getBaseAffinitiesCache = new();
     protected override Dictionary<Element, Affinity> GetBaseAffinities()
     {
