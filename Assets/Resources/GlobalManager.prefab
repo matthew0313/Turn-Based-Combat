@@ -118,12 +118,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   party:
-  - {fileID: 0}
+  - {fileID: 3594660681634104991, guid: 74f74b2676880914d950dd920845e4e2, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   unlockedActions:
   - {fileID: 11400000, guid: d3e9694d59abd0045ba51fc14fa1d33c, type: 2}
-  unlockedAllies: []
+  unlockedAllies:
+  - {fileID: 3594660681634104991, guid: 74f74b2676880914d950dd920845e4e2, type: 3}
   targetTexture: {fileID: 8400000, guid: eab66e17222c71f49b69e718d3c07734, type: 2}
   circleOutImage: {fileID: 8606213470580409647}
 --- !u!1 &6368560090067224586

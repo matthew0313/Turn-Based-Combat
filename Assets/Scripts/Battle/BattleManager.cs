@@ -116,6 +116,9 @@ public class BattleManager : MonoBehaviour
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].OnTurnStart()));
                 CheckDefeat();
             }
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnTurnStart()));
+            CheckDefeat();
+
             bool finished = false;
             BattleAction selectedAction = null;
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetCards(action =>
@@ -132,8 +135,15 @@ public class BattleManager : MonoBehaviour
             CheckDefeat();
             yield return Timing.WaitForSeconds(turnInterval);
 
+            for (int i = 0; i < maxPlayerSide; i++)
+            {
+                if (playerSide[i] == null || playerSide[i].dead) continue;
+                yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].OnTurnStart()));
+                CheckDefeat();
+            }
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnTurnStart()));
             CheckDefeat();
+
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnEnemyTurn()));
             CheckDefeat();
         }

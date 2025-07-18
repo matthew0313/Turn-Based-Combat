@@ -27,7 +27,7 @@ public class DamageIndicator : PooledPrefab<DamageIndicator>
         {
             elementIcon.sprite = BattleManager.Instance.UI.GetSprite(info.damageInfo.element);
             elementIcon.gameObject.SetActive(elementIcon.sprite != null);
-            damageText.text = info.damageInfo.amount.ToString();
+            damageText.text = (Mathf.FloorToInt(info.damageInfo.amount * 10.0f) / 10.0f).ToString();
             damageText.gameObject.SetActive(true);
         }
         else

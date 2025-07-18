@@ -31,7 +31,7 @@ public class BA_WaterBlast : BattleAction
             target.GetDamage(new()
             {
                 attacker = caster,
-                amount = damage,
+                amount = damage + (caster is BE_WaterSpirit ? 5 : 0),
                 element = Element.Water
             });
             yield return Timing.WaitForSeconds(hitInterval);

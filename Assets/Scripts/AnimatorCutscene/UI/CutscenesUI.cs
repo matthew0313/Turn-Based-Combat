@@ -1,3 +1,4 @@
+using AudioManagement;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace AnimatorCutscene
     {
         [Header("Edge")]
         [SerializeField] float edgeMoveTime = 0.5f;
-        [SerializeField] RectTransform upEdge, downEdge, fastPlayCheckbox;
+        [SerializeField] RectTransform upEdge, downEdge;
 
         [Header("Conversation")]
         [SerializeField] float conversationUIAppearTime = 0.25f;
@@ -52,12 +53,17 @@ namespace AnimatorCutscene
             {
                 if (InputManager.Instance.SelectDown.triggered && selectedIndex < choiceCount - 1) SelectChoiceOption(selectedIndex + 1);
                 if (InputManager.Instance.SelectUp.triggered && selectedIndex > 0) SelectChoiceOption(selectedIndex - 1);
-                if (InputManager.Instance.Select.triggered && selected != null) selected.SelectChoice();
+                if (InputManager.Instance.Select.triggered && selected != null)
+                {
+                    AudioManager.Instance.PlaySound("Confirm");
+                    selected.SelectChoice();
+                }
             }
         }
         public void SelectChoiceOption(int index)
         {
             if (index < 0 || index >= choiceCount || selected == conversationChoices[index]) return;
+            AudioManager.Instance.PlaySound("Switch");
             if (selected != null) selected.OnDeselect();
             selectedIndex = index;
             selected = conversationChoices[index];
@@ -76,7 +82,6 @@ namespace AnimatorCutscene
             if (edgeUITween == null) edgeUITween = DOTween.To(() => edgeUIAppear, value => edgeUIAppear = value, 1.0f, edgeMoveTime).OnUpdate(() =>
             {
                 upEdge.pivot = new Vector2(upEdge.pivot.x, edgeUIAppear);
-                fastPlayCheckbox.pivot = new Vector2(fastPlayCheckbox.pivot.x, edgeUIAppear);
                 downEdge.pivot = new Vector2(downEdge.pivot.x, 1.0f - edgeUIAppear);
             }).SetAutoKill(false);
 

@@ -10,7 +10,7 @@ public class BE_WaterSpirit : NPCBattleEntity
     [SerializeField] BA_WaterBlast waterBlast;
     public override IEnumerator<float> OnEnemyTurn()
     {
-        BattleManager.Instance.UI.ShowText($"물 정령이 {waterBlast.actionName}을 사용합니다.");
+        BattleManager.Instance.UI.ShowText($"{entityName}이 {waterBlast.actionName}을 사용합니다.");
         return waterBlast.Act(Alliance.Enemy);
     }
 }

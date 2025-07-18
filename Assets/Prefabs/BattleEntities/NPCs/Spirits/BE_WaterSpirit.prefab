@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1318526238348986338}
   - component: {fileID: 3594660681634104991}
   - component: {fileID: 5198438733784851277}
+  - component: {fileID: 3640680946498174160}
   m_Layer: 0
   m_Name: BE_WaterSpirit
   m_TagString: Untagged
@@ -206,6 +207,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &3640680946498174160
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163714396897452625}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
 --- !u!1001 &4437255333942118949
 PrefabInstance:
   m_ObjectHideFlags: 0

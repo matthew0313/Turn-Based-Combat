@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ac1f3561254a84bbf288dcacfc1069, type: 3}
+  m_Name: BA Fire Blast
+  m_EditorClassIdentifier: 
+  m_actionName: "\uC774\uAE00\uC774\uAE00"
+  m_card: {fileID: 8614170600361975666, guid: fc0a7bb28eae6644bbd5fe88b76f0598, type: 3}
+  target: {fileID: 0}
+  burnDamage: 20
+  endTime:
+    timeMode: 0
+    seconds: 1
+    frames: 60

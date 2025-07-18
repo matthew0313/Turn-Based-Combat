@@ -22,7 +22,6 @@ namespace AnimatorCutscene
     public class CutsceneManager : MonoBehaviour
     {
         public static CutsceneManager Instance { get; private set; }
-        public CutsceneManager() => Instance = this;
         PlayableDirector director;
 
         [SerializeField] CutscenesUI UI;
@@ -35,13 +34,24 @@ namespace AnimatorCutscene
         [SerializeField] float talkLongInterval = 0.25f;
 
         Cutscene playing;
-        List<ICutsceneCallbackReceiver> callbackReceivers;
+        List<ICutsceneCallbackReceiver> m_callbackReceivers;
+        List<ICutsceneCallbackReceiver> callbackReceivers
+        {
+            get
+            {
+                if (m_callbackReceivers == null)
+                {
+                    m_callbackReceivers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<ICutsceneCallbackReceiver>().ToList();
+                    m_callbackReceivers.Sort((a, b) => a.executionOrder.CompareTo(b.executionOrder));
+                }
+                return m_callbackReceivers;
+            }
+        }
         private void Awake()
         {
+            if (Instance != null) Destroy(Instance.gameObject);
+            Instance = this;
             director = GetComponent<PlayableDirector>();
-
-            callbackReceivers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<ICutsceneCallbackReceiver>().ToList();
-            callbackReceivers.Sort((a, b) => a.executionOrder.CompareTo(b.executionOrder));
         }
         bool GetConversationPassInput()
         {
