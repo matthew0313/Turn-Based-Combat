@@ -35,7 +35,6 @@ namespace Player_Field
                 rb.linearVelocity = Vector2.zero; return;
             }
             Vector2 move = InputManager.Instance.Move.ReadValue<Vector2>();
-            Debug.Log(move); 
             if(Mathf.Abs(move.x) >= Mathf.Abs(move.y))
             {
                 if (move.x > 0) origin.anim.SetInteger(directionID, 0);

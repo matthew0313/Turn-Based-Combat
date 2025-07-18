@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 1092952726060518855}
   - component: {fileID: 7132737334881537871}
   - component: {fileID: 7615011634693362619}
+  - component: {fileID: 4934953374007927941}
   m_Layer: 0
   m_Name: WaterSpirit
   m_TagString: Untagged
@@ -200,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_anim: {fileID: 7615011634693362619}
   m_entityName: "\uBB3C \uC815\uB839"
+  m_entityIcon: {fileID: 0}
   m_rotator: {fileID: 3048804649924109755}
   attackMultiplier: 1
   defenseMultiplier: 1
@@ -248,6 +250,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &4934953374007927941
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8825115237040057543}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &2628849280085243781
 PrefabInstance:
   m_ObjectHideFlags: 0

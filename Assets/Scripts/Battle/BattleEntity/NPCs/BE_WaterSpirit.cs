@@ -1,55 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using MEC;
 using UnityEngine;
 
 public class BE_WaterSpirit : NPCBattleEntity
 {
-    [Header("Attack")]
-    [SerializeField] float attackDamage = 5;
-    [SerializeField] UnitTime attackTime, attackEndTime;
-
-    [Header("Bless")]
-    [SerializeField] float defenseMultiplierAdd = 0.1f;
-    [SerializeField] int defenseBuffTurns = 5;
-    [SerializeField] UnitTime buffApplyTime, blessEndTime;
+    [Header("Water Splash")]
+    [SerializeField] float WSDamage = 10;
+    [SerializeField] int WSCount = 3;
+    [SerializeField] UnitTime WSStartTime, WSInterval, WSEndTime;
+    [SerializeField] Transform WSBlastFirePoint;
+    [SerializeField] PooledEffect WSBlast, WSExplosion;
+    [SerializeField] float WSBlastFlyTime = 1.0f;
     protected override IEnumerator<float> OnTurn()
     {
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(base.OnTurn()));
-        var allies = BattleManager.Instance.GetAllies(alliance).ToList();
-        allies.RemoveAll(ally => ally.dead);
-        allies.Sort((a, b) => a.defenseMultiplier.CompareTo(b.defenseMultiplier));
-        if (allies[0].defenseMultiplier < 1.1f)
+        yield return Timing.WaitUntilDone(
+            Timing.RunCoroutine(WaterSplash(BattleManager.Instance.GetEnemies(alliance).SelectRandom(item => item != null))));
+    }
+    IEnumerator<float> WaterSplash(BattleEntity target)
+    {
+        yield return Timing.WaitForSeconds(WSStartTime);
+        Timing.RunCoroutine(WaterSplashBurst(target));
+        yield return Timing.WaitForSeconds(WSEndTime - WSStartTime);
+    }
+    IEnumerator<float> WaterSplashBurst(BattleEntity target)
+    {
+        for (int i = 0; i < WSCount; i++)
         {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(Bless(allies[0])));
-            yield break;
+            WaterSplashFire(target);
+            yield return Timing.WaitForSeconds(WSInterval);
         }
-        var target = BattleManager.Instance.GetEnemies(alliance).SelectRandom(entity => entity != null && entity.dead == false);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(Attack(target)));
     }
-    readonly int attackID = Animator.StringToHash("Attack");
-    readonly int blessID = Animator.StringToHash("Bless");
-    IEnumerator<float> Attack(BattleEntity target)
+    void WaterSplashFire(BattleEntity target)
     {
-        anim.SetTrigger(attackID);
-        BattleManager.Instance.UI.ShowText($"{entityName}가 공격합니다.");
-        yield return Timing.WaitForSeconds(attackTime);
-        target.GetDamage(new() { attacker = this, element = Element.Water, amount = attackDamage * attackMultiplier });
-        yield return Timing.WaitForSeconds(attackEndTime - attackTime);
-    }
-    IEnumerator<float> Bless(BattleEntity target)
-    {
-        anim.SetTrigger(blessID);
-        BattleManager.Instance.UI.ShowText($"{entityName}가 {target.entityName}를 축복합니다.");
-        yield return Timing.WaitForSeconds(buffApplyTime);
-        target.ApplyAliment(new Aliment_DefenseBuff(defenseMultiplierAdd, defenseBuffTurns));
-        yield return Timing.WaitForSeconds(blessEndTime - buffApplyTime);
-    }
-    protected override void OnDeath()
-    {
-        base.OnDeath();
-        BattleManager.Instance.RemoveEntity(this);
-        Destroy(gameObject);
+        PooledEffect blast = WSBlast.Get(WSBlastFirePoint.position,
+            MathUtility.LookAt(WSBlastFirePoint.position, target.transform.position));
+
+        blast.transform.DOMove(target.transform.position, WSBlastFlyTime).SetEase(Ease.InCirc).OnComplete(() =>
+        {
+            WSExplosion.Get(target.transform.position, Quaternion.identity);
+            target.GetDamage(new()
+            {
+                element = Element.Water,
+                amount = WSDamage,
+                attacker = this
+            });
+        });
     }
 }

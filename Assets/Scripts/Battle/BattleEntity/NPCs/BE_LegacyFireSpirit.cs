@@ -4,7 +4,7 @@ using System.Linq;
 using MEC;
 using UnityEngine;
 
-public class BE_FireSpirit : NPCBattleEntity
+public class BE_LegacyFireSpirit : NPCBattleEntity
 {
     [Header("Attack")]
     [SerializeField] float attackDamage = 3;

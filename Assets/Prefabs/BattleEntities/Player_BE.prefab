@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -6201019692056567399, guid: e051c25fd3efbee48ad1c83111424693, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5037461229686670259}
-  - component: {fileID: 2102526937207548915}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -121,18 +120,6 @@ Transform:
   - {fileID: 4297866289641270216}
   m_Father: {fileID: 3711191108176055807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!210 &2102526937207548915
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312601079849453851}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!1 &3522468956598305265
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +265,7 @@ GameObject:
   - component: {fileID: 6224250629152450407}
   - component: {fileID: 5832806342849092641}
   - component: {fileID: 5498000447010196919}
+  - component: {fileID: 5351497301383581388}
   m_Layer: 0
   m_Name: Player_BE
   m_TagString: Untagged
@@ -353,6 +341,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &5351497301383581388
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6725665559391736145}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &8022696200499829352
 GameObject:
   m_ObjectHideFlags: 0

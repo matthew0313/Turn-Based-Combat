@@ -12,9 +12,9 @@ namespace Player_Battle
     public class Player_BA_SummonSpirit : PlayerBattleAction
     {
         [Header("Stats")]
-        [SerializeField] BE_FireSpirit fireSpirit;
-        [SerializeField] BE_WaterSpirit waterSpirit;
-        [SerializeField] BE_GrassSpirit grassSpirit;
+        [SerializeField] BE_LegacyFireSpirit fireSpirit;
+        [SerializeField] BE_LegacyWaterSpirit waterSpirit;
+        [SerializeField] BE_LegacyGrassSpirit grassSpirit;
 
         [Header("Visuals")]
         [SerializeField] string triggerName;
