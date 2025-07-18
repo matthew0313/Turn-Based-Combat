@@ -34,15 +34,25 @@ public class JumpInteraction : Interaction
     }
     readonly int directionID = Animator.StringToHash("Direction");
     readonly int jumpID = Animator.StringToHash("Jump");
+    readonly int isJumpingID = Animator.StringToHash("IsJumping");
     IEnumerator<float> Jumping()
     {
         float counter = 0.0f;
         Vector2 startPos = player.transform.position, targetPos = jumpTarget.position;
 
         Vector2 move = (targetPos - startPos).normalized;
-        if (move.x > 0) player.anim.SetInteger(directionID, 0);
-        else player.anim.SetInteger(directionID, 2);
+        if (Mathf.Abs(move.x) >= Mathf.Abs(move.y))
+        {
+            if (move.x > 0) player.anim.SetInteger(directionID, 0);
+            else player.anim.SetInteger(directionID, 2);
+        }
+        else
+        {
+            if (move.y > 0) player.anim.SetInteger(directionID, 1);
+            else player.anim.SetInteger(directionID, 3);
+        }
         player.anim.SetTrigger(jumpID);
+        player.anim.SetBool(isJumpingID, true);
 
         while (counter < jumpDuration)
         {
@@ -54,6 +64,7 @@ public class JumpInteraction : Interaction
         }
         player.movements.enabled = true;
         player.interactions.enabled = true;
+        player.anim.SetBool(isJumpingID, false);
     }
     readonly int selectedID = Animator.StringToHash("Selected");
     public override void OnSelect()

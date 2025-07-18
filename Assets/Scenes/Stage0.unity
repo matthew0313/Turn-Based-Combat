@@ -885,7 +885,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 224c9fb2573f62548982e0e2ed08f2b2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1798,22 +1798,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactText: "\uB3C4\uC57D\uD558\uAE30"
   anim: {fileID: 651806362}
-  jumpDuration: 0.5
+  jumpDuration: 1
   jumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 10.829205
-      outSlope: 10.829205
+      inSlope: 4.004807
+      outSlope: 4.004807
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.077777795
+      outWeight: 0.105555564
     - serializedVersion: 3
       time: 0.5
-      value: 2
+      value: 1
       inSlope: 0.083084285
       outSlope: 0.083084285
       tangentMode: 0
@@ -1823,11 +1823,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -8.4109
-      outSlope: -8.4109
+      inSlope: -3.5058355
+      outSlope: -3.5058355
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.088888764
+      inWeight: 0.12777758
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -7145,22 +7145,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactText: "\uB3C4\uC57D\uD558\uAE30"
   anim: {fileID: 1681745393}
-  jumpDuration: 0.5
+  jumpDuration: 1
   jumpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 4
-      outSlope: 4
+      inSlope: 2
+      outSlope: 2
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.5
-      value: 2
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 34
@@ -7170,8 +7170,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -4
-      outSlope: -4
+      inSlope: -2
+      outSlope: -2
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
