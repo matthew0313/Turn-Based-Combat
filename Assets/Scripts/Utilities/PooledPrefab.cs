@@ -59,3 +59,7 @@ public abstract class PooledPrefab<T> : MonoBehaviour where T : PooledPrefab<T>
         if (released) pools[prefabOrigin].Remove(this as T);
     }
 }
+public class PooledPrefab : PooledPrefab<PooledPrefab>
+{
+
+}

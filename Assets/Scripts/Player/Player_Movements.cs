@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MEC;
-using Player_Battle;
 using AnimatorCutscene;
 
 namespace Player_Field

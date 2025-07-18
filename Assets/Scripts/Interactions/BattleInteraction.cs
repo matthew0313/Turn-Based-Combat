@@ -6,7 +6,7 @@ using System;
 public class BattleInteraction : Interaction, ISavable
 {
     [SerializeField] Animator anim;
-    [SerializeField] BattleEntity[] enemies = new BattleEntity[BattleManager.maxEnemySide];
+    [SerializeField] BattleEntity enemy;
     [SerializeField] Sound music;
     [SerializeField] SceneTransition transition = SceneTransition.CircleOut;
     [SerializeField] SaveID id;
@@ -15,15 +15,11 @@ public class BattleInteraction : Interaction, ISavable
     public override void OnInteract()
     {
         BattleData battleData = new();
-        battleData.playerSide[0] = player.battleEntity;
-        for(int i = 0; i < BattleManager.maxPlayerSide - 1; i++)
+        for(int i = 0; i < BattleManager.maxPlayerSide; i++)
         {
-            battleData.playerSide[i + 1] = GlobalManager.Instance.party[i];
+            battleData.playerSide[i] = GlobalManager.Instance.party[i];
         }
-        for(int i = 0; i < BattleManager.maxEnemySide; i++)
-        {
-            battleData.enemySide[i] = enemies[i];
-        }
+        battleData.enemy = enemy;
         battleData.music = music;
         battleData.onVictory = GetOnVictory();
         battleData.onLoss = GetOnLoss();
@@ -36,7 +32,7 @@ public class BattleInteraction : Interaction, ISavable
         StageManager.Instance.Save(data);
         return () =>
         {
-            GlobalManager.Instance.EnterStage(StageManager.Instance.stageIndex, SceneTransition.CircleOut, () =>
+            GlobalManager.Instance.SwitchScene(data.stageName, SceneTransition.CircleOut, () =>
             {
                 StageManager.Instance.Load(data);
             });

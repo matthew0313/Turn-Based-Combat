@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47887aeadc9bddf4b8877b592fe86362, type: 3}
+  m_Name: BA Water Blast
+  m_EditorClassIdentifier: 
+  m_actionName: "\uCCA8\uBC99\uCCA8\uBC99"
+  m_card: {fileID: 8614170600361975666, guid: a17d70d26635b514f9fcce86e616aee5, type: 3}
+  target: {fileID: 0}
+  damage: 10
+  hitCount: 3
+  hitInterval:
+    timeMode: 0
+    seconds: 0.1
+    frames: 6
+  endTime:
+    timeMode: 0
+    seconds: 1
+    frames: 60

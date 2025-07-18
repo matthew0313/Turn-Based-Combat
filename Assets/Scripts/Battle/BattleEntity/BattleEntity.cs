@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using MEC;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public abstract class BattleEntity : MonoBehaviour
 {
@@ -11,10 +9,12 @@ public abstract class BattleEntity : MonoBehaviour
     [SerializeField] string m_entityName;
     [SerializeField] Sprite m_entityIcon;
     [SerializeField] Transform m_rotator;
+    [SerializeField] UnitTime m_actionCastTime;
     public Animator anim => m_anim;
     public string entityName => m_entityName;
     public Sprite entityIcon => m_entityIcon;
     public Transform rotator => m_rotator;
+    public UnitTime actionCastTime => m_actionCastTime;
     public abstract float maxHp { get; }
     public abstract float hp { get; protected set; }
     public bool dead { get; protected set; } = false;
@@ -24,36 +24,25 @@ public abstract class BattleEntity : MonoBehaviour
     //modified stats
     public float attackMultiplier = 1.0f;
     public float defenseMultiplier = 1.0f;
-    public bool isStunned = false;
     public virtual void Set(int battlePosition, Alliance alliance)
     {
         this.battlePosition = battlePosition;
         this.alliance = alliance;
     }
     public virtual IEnumerator<float> OnBattleStart() { yield break; }
-
-    bool isMyTurn = false;
-    CoroutineHandle currentTurn;
-    public IEnumerator<float> Turn()
-    {
-        if (isMyTurn) yield break;
-
-        isMyTurn = true;
-        currentTurn = Timing.RunCoroutine(OnTurn());
-        yield return Timing.WaitUntilDone(currentTurn);
-        FinishTurn();
-    }
-    protected virtual IEnumerator<float> OnTurn()
+    public virtual IEnumerator<float> OnTurnStart()
     {
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(IterateAliments()));
         yield break;
     }
-    protected void FinishTurn()
+    readonly int castID = Animator.StringToHash("Cast");
+    public IEnumerator<float> CastAction(IEnumerator<float> action)
     {
-        if (!isMyTurn) return;
-        isMyTurn = false;
-        Timing.KillCoroutines(currentTurn);
+        anim.SetTrigger(castID);
+        yield return Timing.WaitForSeconds(actionCastTime);
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(action));
     }
+    public virtual IEnumerator<float> OnEnemyTurn() { yield break; }
 
 
     //Affinities

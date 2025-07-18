@@ -10,7 +10,7 @@ public class Interaction_Battle1 : Interaction, ISavable
     [SerializeField] Animator anim;
 
     [Header("Battle1")]
-    [SerializeField] BattleEntity[] enemies = new BattleEntity[BattleManager.maxEnemySide];
+    [SerializeField] BattleEntity enemy;
     [SerializeField] Sound music;
     [SerializeField] SceneTransition transition = SceneTransition.CircleOut;
     [SerializeField] BattleEntity unlockedAlly;
@@ -34,15 +34,11 @@ public class Interaction_Battle1 : Interaction, ISavable
     public void InitiateBattle()
     {
         BattleData battleData = new();
-        battleData.playerSide[0] = player.battleEntity;
-        for (int i = 0; i < BattleManager.maxPlayerSide - 1; i++)
+        for (int i = 0; i < BattleManager.maxPlayerSide; i++)
         {
-            battleData.playerSide[i + 1] = GlobalManager.Instance.party[i];
+            battleData.playerSide[i] = GlobalManager.Instance.party[i];
         }
-        for (int i = 0; i < BattleManager.maxEnemySide; i++)
-        {
-            battleData.enemySide[i] = enemies[i];
-        }
+        battleData.enemy = enemy;
         battleData.music = music;
 
         SaveData data = new();
@@ -52,7 +48,7 @@ public class Interaction_Battle1 : Interaction, ISavable
 
         battleData.onVictory = () =>
         {
-            GlobalManager.Instance.EnterStage(StageManager.Instance.stageIndex, SceneTransition.CircleOut, () =>
+            GlobalManager.Instance.SwitchScene(data.stageName, SceneTransition.CircleOut, () =>
             {
                 StageManager.Instance.Load(data);
             });

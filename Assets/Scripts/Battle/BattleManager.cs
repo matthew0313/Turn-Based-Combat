@@ -3,9 +3,7 @@ using UnityEngine;
 using MEC;
 using System.Linq;
 using System;
-using Player_Battle;
 using AudioManagement;
-using Unity.VisualScripting;
 
 [RequireComponent(typeof(BattleManager_UI))]
 public class BattleManager : MonoBehaviour
@@ -14,11 +12,11 @@ public class BattleManager : MonoBehaviour
     public BattleManager() => Instance = this;
     public BattleManager_UI UI { get; private set; }
 
-    public const int maxPlayerSide = 4, maxEnemySide = 3;
+    public const int maxPlayerSide = 3;
 
     [Header("Battle")]
     [SerializeField] Transform[] playerSidePos = new Transform[maxPlayerSide];
-    [SerializeField] Transform[] enemySidePos = new Transform[maxEnemySide];
+    [SerializeField] Transform enemyPos;
     [SerializeField] UnitTime battleStartTime;
     [SerializeField] float turnInterval = 0.5f;
 
@@ -44,14 +42,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] bool debug = false;
     [SerializeField] BattleData debugBattleData;
 
-    ControlMachine<float> timeScaleControl;
-    ControlElement<float> fastPlayControl;
 
     private void Awake()
     {
         UI = GetComponent<BattleManager_UI>();
-        timeScaleControl = new(value => Time.timeScale = value, 1.0f);
-        fastPlayControl = new(() => fastPlaySpeed, 0, false);
     }
     private void Start()
     {
@@ -65,7 +59,8 @@ public class BattleManager : MonoBehaviour
         if (InputManager.Instance.BattleFastPlay.triggered) ToggleFastPlay();
     }
 
-    readonly BattleEntity[] playerSide = new BattleEntity[maxPlayerSide], enemySide = new BattleEntity[maxEnemySide];
+    readonly BattleEntity[] playerSide = new BattleEntity[maxPlayerSide];
+    BattleEntity enemy;
     CoroutineHandle progressBattle;
     bool battleInitiated = false;
 
@@ -81,11 +76,7 @@ public class BattleManager : MonoBehaviour
             if (data.playerSide[i] == null) continue;
             SetPlayerSide(i, data.playerSide[i]);
         }
-        for(int i = 0; i < maxEnemySide; i++)
-        {
-            if (data.enemySide[i] == null) continue;
-            SetEnemySide(i, data.enemySide[i]);
-        }
+        SetEnemy(data.enemy);
         progressBattle = Timing.RunCoroutine(ProgressBattle());
     }
     public void SetPlayerSide(int index, BattleEntity entityPrefab)
@@ -98,15 +89,15 @@ public class BattleManager : MonoBehaviour
         playerSide[index] = entity;
         entity.Set(index, Alliance.Player);
     }
-    public void SetEnemySide(int index, BattleEntity entityPrefab)
+    public void SetEnemy(BattleEntity entityPrefab)
     {
         BattleEntity entity = Instantiate(entityPrefab);
-        entity.transform.SetParent(enemySidePos[index], false);
+        entity.transform.SetParent(enemyPos, false);
         entity.transform.localPosition = Vector3.zero;
         entity.transform.localRotation = Quaternion.identity;
         entity.rotator.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-        enemySide[index] = entity;
-        entity.Set(index, Alliance.Enemy);
+        enemy = entity;
+        entity.Set(0, Alliance.Enemy);
     }
     IEnumerator<float> ProgressBattle()
     {
@@ -116,30 +107,38 @@ public class BattleManager : MonoBehaviour
             if (playerSide[i] == null) continue;
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].OnBattleStart()));
         }
-        for(int i = 0; i < maxEnemySide; i++)
-        {
-            if (enemySide[i] == null) continue;
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemySide[i].OnBattleStart()));
-        }
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnBattleStart()));
         while (true)
         {
             for(int i = 0; i < maxPlayerSide; i++)
             {
                 if (playerSide[i] == null || playerSide[i].dead) continue;
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].Turn()));
-                OnTurnFinish();
-                yield return Timing.WaitForSeconds(turnInterval);
+                yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].OnTurnStart()));
+                CheckDefeat();
             }
-            for (int i = 0; i < maxEnemySide; i++)
+            bool finished = false;
+            BattleAction selectedAction = null;
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(SetCards(action =>
             {
-                if (enemySide[i] == null || enemySide[i].dead) continue;
-                yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemySide[i].Turn()));
-                OnTurnFinish();
-                yield return Timing.WaitForSeconds(turnInterval);
+                finished = true;
+                selectedAction = action;
+            })));
+            while (!finished) yield return Timing.WaitForOneFrame;
+            if(selectedAction != null)
+            {
+                UI.ShowText($"플레이어가 {selectedAction.actionName}을 사용합니다.");
+                yield return Timing.WaitUntilDone(Timing.RunCoroutine(selectedAction.Act(Alliance.Player)));
             }
+            CheckDefeat();
+            yield return Timing.WaitForSeconds(turnInterval);
+
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnTurnStart()));
+            CheckDefeat();
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnEnemyTurn()));
+            CheckDefeat();
         }
     }
-    void OnTurnFinish()
+    void CheckDefeat()
     {
         bool playerLost = true;
         for(int i = 0; i < maxPlayerSide; i++)
@@ -155,13 +154,7 @@ public class BattleManager : MonoBehaviour
         }
 
         bool playerWon = true;
-        for (int i = 0; i < maxEnemySide; i++)
-        {
-            if (enemySide[i] != null && !enemySide[i].dead)
-            {
-                playerWon = false; break;
-            }
-        }
+        if (enemy != null && !enemy.dead) playerWon = false;
         if (playerWon)
         {
             Victory(); return;
@@ -170,11 +163,11 @@ public class BattleManager : MonoBehaviour
     public IEnumerable<BattleEntity> GetEnemies(Alliance alliance)
     {
         if (alliance == Alliance.Enemy) foreach (var i in playerSide) if (i != null) yield return i;
-        if (alliance == Alliance.Player) foreach(var i in enemySide) if(i != null) yield return i;
+        if (alliance == Alliance.Player) yield return enemy;
     }
     public IEnumerable<BattleEntity> GetAllies(Alliance alliance)
     {
-        if (alliance == Alliance.Enemy) foreach (var i in enemySide) if (i != null) yield return i;
+        if (alliance == Alliance.Enemy) yield return enemy;
         if (alliance == Alliance.Player) foreach (var i in playerSide) if (i != null) yield return i;
     }
     public void RemoveEntity(BattleEntity entity)
@@ -186,22 +179,12 @@ public class BattleManager : MonoBehaviour
         }
         if(entity.alliance == Alliance.Enemy)
         {
-            enemySide[entity.battlePosition] = null;
+            enemy = null;
         }
     }
-    public void AddAlly(Alliance alliance, BattleEntity entity)
+    public void AddAlly(BattleEntity entity)
     {
-        if (GetAllies(alliance).Count() >= (alliance == Alliance.Player ? maxPlayerSide : maxEnemySide)) return;
-        if(alliance == Alliance.Enemy)
-        {
-            for(int i = 0; i < maxEnemySide; i++)
-            {
-                if (enemySide[i] == null)
-                {
-                    SetEnemySide(i, entity); return;
-                }
-            }
-        }
+        if (GetAllies(Alliance.Player).Count() >= maxPlayerSide) return;
         else
         {
             for (int i = 0; i < maxPlayerSide; i++)
@@ -216,31 +199,38 @@ public class BattleManager : MonoBehaviour
 
     public const int cardCount = 3;
     int selectedCardIndex = 0;
-    readonly PlayerBattleAction[] battleActions = new PlayerBattleAction[cardCount];
-    public void SelectPlayerAction(BE_Player actor, Action<PlayerBattleAction> onFinish)
+    readonly BattleAction[] battleActions = new BattleAction[cardCount];
+    public void SelectPlayerAction(Action<BattleAction> onFinish)
     {
-        Timing.RunCoroutine(SetCards(actor, onFinish));
+        Timing.RunCoroutine(SetCards(onFinish));
     }
-    IEnumerator<float> SetCards(BE_Player actor, Action<PlayerBattleAction> onFinish)
+    void ShuffleAction(int index)
     {
-        if(GlobalManager.Instance.unlockedActions.Count <= 0)
+        if (index < 0 || index >= cardCount) return;
+        battleActions[index] = GlobalManager.Instance.unlockedActions.SelectRandom(item => true);
+        UI.SetCard(index, battleActions[index]);
+    }
+    IEnumerator<float> SetCards(Action<BattleAction> onFinish)
+    {
+        if (GlobalManager.Instance.unlockedActions.Count <= 0)
         {
             UI.ShowText("액션이 없어 턴을 스킵합니다.");
             yield return Timing.WaitForSeconds(1.0f);
             onFinish?.Invoke(null); yield break;
         }
-        UI.ShowCards();
         for (int i = 0; i < cardCount; i++)
         {
-            float rand = UnityEngine.Random.Range(0, 100.0f);
-            battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => true);
-            UI.SetCard(i, battleActions[i]);
+            if (battleActions[i] == null)
+            {
+                ShuffleAction(i);
+            }
         }
-        selectedCardIndex = 0;
+        UI.ShowCards();
         UI.SelectCard(0);
-        Timing.RunCoroutine(SelectingCard(actor, onFinish));
+        selectedCardIndex = 0;
+        Timing.RunCoroutine(SelectingCard(onFinish));
     }
-    IEnumerator<float> SelectingCard(BE_Player actor, Action<PlayerBattleAction> onFinish)
+    IEnumerator<float> SelectingCard(Action<BattleAction> onFinish)
     {
         while (true)
         {
@@ -260,7 +250,7 @@ public class BattleManager : MonoBehaviour
             if (InputManager.Instance.Select.triggered && selectedCardIndex != -1)
             {
                 AudioManager.Instance.PlaySound("Confirm");
-                Timing.RunCoroutine(SelectingTarget(actor, battleActions[selectedCardIndex], onFinish)); yield break;
+                Timing.RunCoroutine(SelectingTarget(onFinish)); yield break;
             }
             if (InputManager.Instance.PassTurn.triggered)
             {
@@ -274,28 +264,44 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
-    IEnumerator<float> SelectingTarget(BE_Player actor, PlayerBattleAction selectedAction, Action<PlayerBattleAction> onFinish)
+    IEnumerator<float> SelectingTarget(Action<BattleAction> onFinish)
     {
         List<BattleEntity> targets = new();
-        if (!selectedAction.CheckRequirements(actor, out string falseReason))
+        BattleAction selectedAction = battleActions[selectedCardIndex];
+        if (!selectedAction.CheckRequirements(out string falseReason))
         {
             UI.ShowText(falseReason);
             AudioManager.Instance.PlaySound("Invalid");
-            Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
+            Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
         }
         switch (selectedAction.targetSelection)
         {
-            case TargetSelection.Self:
-            case TargetSelection.AllEnemy:
+            case TargetSelection.Enemy:
+                UI.ShowMark(enemy);
+                while (true)
+                {
+                    yield return Timing.WaitForOneFrame;
+                    if (InputManager.Instance.Select.triggered)
+                    {
+                        UI.HideMarks();
+                        UI.HideCards();
+                        UI.DeselectCard();
+                        selectedAction.target = enemy;
+                        AudioManager.Instance.PlaySound("Confirm");
+                        onFinish?.Invoke(selectedAction); yield break;
+                    }
+                    if (InputManager.Instance.Cancel.triggered)
+                    {
+                        UI.HideMarks();
+                        AudioManager.Instance.PlaySound("Cancel");
+                        Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
+                    }
+                }
             case TargetSelection.AllAlly:
-            case TargetSelection.AllAllyExceptSelf:
             case TargetSelection.All:
                 switch (selectedAction.targetSelection)
                 {
-                    case TargetSelection.Self: targets.Add(actor); break;
-                    case TargetSelection.AllEnemy: foreach(var i in GetEnemies(Alliance.Player)) if(!i.dead) targets.Add(i); break;
                     case TargetSelection.AllAlly:  foreach(var i in GetAllies(Alliance.Player)) if (!i.dead) targets.Add(i); break;
-                    case TargetSelection.AllAllyExceptSelf: foreach (var i in GetAllies(Alliance.Player)) if (!i.dead && i != actor) targets.Add(i); break;
                     case TargetSelection.All:
                         foreach (var i in GetEnemies(Alliance.Player)) if (!i.dead) targets.Add(i);
                         foreach (var i in GetAllies(Alliance.Player)) if (!i.dead) targets.Add(i);
@@ -305,7 +311,7 @@ public class BattleManager : MonoBehaviour
                 {
                     UI.ShowText("타깃이 없습니다.");
                     AudioManager.Instance.PlaySound("Invalid");
-                    Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
+                    Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
                 }
                 foreach (var i in targets) UI.ShowMark(i);
                 while (true)
@@ -323,23 +329,19 @@ public class BattleManager : MonoBehaviour
                     {
                         UI.HideMarks();
                         AudioManager.Instance.PlaySound("Cancel");
-                        Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
+                        Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
                     }
                 }
-            case TargetSelection.SingleEnemy:
             case TargetSelection.SingleAlly:
-            case TargetSelection.SingleAllyExceptSelf:
                 switch (selectedAction.targetSelection)
                 {
-                    case TargetSelection.SingleEnemy: foreach (var i in GetEnemies(Alliance.Player)) if (!i.dead) targets.Add(i); break;
                     case TargetSelection.SingleAlly: foreach (var i in GetAllies(Alliance.Player)) if (!i.dead) targets.Add(i); break;
-                    case TargetSelection.SingleAllyExceptSelf: foreach (var i in GetAllies(Alliance.Player)) if (!i.dead && i != actor) targets.Add(i); break;
                 }
                 if(targets.Count == 0)
                 {
                     UI.ShowText("타깃이 없습니다.");
                     AudioManager.Instance.PlaySound("Invalid");
-                    Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
+                    Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
                 }
                 int selected = 0;
                 UI.ShowMark(targets[selected]);
@@ -371,7 +373,7 @@ public class BattleManager : MonoBehaviour
                     {
                         UI.HideMarks();
                         AudioManager.Instance.PlaySound("Cancel");
-                        Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
+                        Timing.RunCoroutine(SelectingCard(onFinish)); yield break;
                     }
                 }
         }
@@ -419,7 +421,7 @@ public enum Alliance
 public class BattleData
 {
     public BattleEntity[] playerSide = new BattleEntity[BattleManager.maxPlayerSide];
-    public BattleEntity[] enemySide = new BattleEntity[BattleManager.maxEnemySide];
+    public BattleEntity enemy;
     public Sound music;
 
     public Action onVictory, onLoss;

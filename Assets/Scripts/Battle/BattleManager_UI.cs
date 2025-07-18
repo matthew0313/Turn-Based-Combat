@@ -1,10 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MEC;
-using DG.Tweening;
-using Player_Battle;
-using System;
-using System.Runtime.InteropServices;
 using UnityEngine.UI;
 
 public class BattleManager_UI : MonoBehaviour
@@ -23,8 +18,9 @@ public class BattleManager_UI : MonoBehaviour
 
     [Header("Action Selection")]
     [SerializeField] ActionCardSet cardSet;
-    [SerializeField] ActionCard[] cards = new ActionCard[BattleManager.cardCount];
+    [SerializeField] Transform[] cardAnchors = new Transform[BattleManager.cardCount];
     [SerializeField] TargetMark markPrefab;
+    ActionCard[] cards = new ActionCard[BattleManager.cardCount];
 
     [Header("Fast Play")]
     [SerializeField] GameObject fastPlayEffect;
@@ -77,29 +73,28 @@ public class BattleManager_UI : MonoBehaviour
     {
         cardSet.Hide();
     }
-    public void SetCard(int index, PlayerBattleAction battleAction)
+    public void SetCard(int index, BattleAction battleAction)
     {
-        cards[index].Set(battleAction);
+        ActionCard tmp = battleAction.card.Get();
+        tmp.transform.SetParent(cardAnchors[index]);
+        tmp.transform.localPosition = Vector2.zero;
+        tmp.transform.localRotation = Quaternion.identity;
+        tmp.transform.localScale = Vector3.one;
+        tmp.Set(battleAction, index);
+
+        if (cards[index] != null) cards[index].Release();
+        cards[index] = tmp;
     }
-    ActionCard m_selectedCard = null;
-    ActionCard selectedCard
-    {
-        set
-        {
-            if (m_selectedCard != value)
-            {
-                if (m_selectedCard != null) m_selectedCard.OnDeselect();
-                m_selectedCard = value;
-                if (m_selectedCard != null) m_selectedCard.OnSelect();
-            }
-        }
-    }
+    ActionCard selectedCard;
     public void SelectCard(int index)
     {
+        if (selectedCard != null) selectedCard.OnDeselect();
         selectedCard = cards[index];
+        selectedCard.OnSelect();
     }
     public void DeselectCard()
     {
+        if (selectedCard != null) selectedCard.OnDeselect();
         selectedCard = null;
     }
     List<TargetMark> marks = new();

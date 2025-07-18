@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class PartyTab : Tab
 {
-    [SerializeField] PartySlotUI[] slotUIs = new PartySlotUI[BattleManager.maxPlayerSide - 1];
+    [SerializeField] PartySlotUI[] slotUIs = new PartySlotUI[BattleManager.maxPlayerSide];
     [SerializeField] PartyMemberUI memberUIPrefab;
     [SerializeField] Transform memberUIAnchor;
     readonly List<PartyMemberUI> memberUIs = new();

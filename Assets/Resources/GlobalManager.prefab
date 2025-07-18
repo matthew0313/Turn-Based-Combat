@@ -122,14 +122,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   unlockedActions:
-  - {fileID: 11400000, guid: e996f03d9a1644d46b2c52ff1ed6c835, type: 2}
-  - {fileID: 11400000, guid: 7ccab95a51185c24fa68b99ed6586d1c, type: 2}
-  - {fileID: 11400000, guid: 9be52e6ed23517a4b99310f40e5ffd7e, type: 2}
-  - {fileID: 11400000, guid: 958d01f4572f3c64495f1acf2ddb0414, type: 2}
-  - {fileID: 11400000, guid: aa9c3c03511f3c844b94d04c3c0ab018, type: 2}
-  - {fileID: 11400000, guid: 4203f346ca4573a498806abb2360f6b7, type: 2}
-  - {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
-  - {fileID: 11400000, guid: 11f3d9a01f6ad4942bbe62e8740625e1, type: 2}
+  - {fileID: 11400000, guid: d3e9694d59abd0045ba51fc14fa1d33c, type: 2}
   unlockedAllies: []
   targetTexture: {fileID: 8400000, guid: eab66e17222c71f49b69e718d3c07734, type: 2}
   circleOutImage: {fileID: 8606213470580409647}

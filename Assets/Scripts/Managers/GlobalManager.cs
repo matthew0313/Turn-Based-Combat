@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MEC;
-using Player_Battle;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -30,7 +28,7 @@ public class GlobalManager : MonoBehaviour
     }
     
     public BattleEntity[] party = new BattleEntity[BattleManager.maxPlayerSide-1];
-    public List<PlayerBattleAction> unlockedActions = new();
+    public List<BattleAction> unlockedActions = new();
     public List<BattleEntity> unlockedAllies = new();
 
     [Header("Scene Switching")]
@@ -68,10 +66,6 @@ public class GlobalManager : MonoBehaviour
             BattleManager.Instance.InitiateBattle(data);
         });
     }
-    public void EnterStage(int stageIndex, SceneTransition transition, Action onSceneLoad = null)
-    {
-        SwitchScene($"Stage{stageIndex}", transition, onSceneLoad);
-    }
     public event Action onPartyChange;
     public event Action onAllyUnlock;
     public void ChangePartyMember(int partySlotIndex, BattleEntity entity)
@@ -105,7 +99,7 @@ public class GlobalManager : MonoBehaviour
         unlockedActions = data.unlockedActions;
         unlockedAllies = data.unlockedAllies;
         unlockedActions = data.unlockedActions;
-        EnterStage(data.stageIndex, transition, () =>
+        SwitchScene(data.stageName, transition, () =>
         {
             StageManager.Instance.Load(data);
         });
