@@ -48,6 +48,8 @@ public abstract class Interaction : MonoBehaviour
         else RemoveInteraction();
     }
     public abstract void OnInteract();
-    public virtual void OnSelect() { }
-    public virtual void OnDeselect() { }
+
+    protected bool selected = false;
+    public virtual void OnSelect() { selected = true; }
+    public virtual void OnDeselect() { selected = false; }
 }

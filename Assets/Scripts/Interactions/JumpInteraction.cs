@@ -12,7 +12,7 @@ public class JumpInteraction : Interaction
     [SerializeField] float jumpDuration = 1.0f;
     [SerializeField] AnimationCurve jumpCurve;
     [SerializeField] Transform jumpTarget;
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if(jumpCurve != null && jumpTarget != null)
         {
