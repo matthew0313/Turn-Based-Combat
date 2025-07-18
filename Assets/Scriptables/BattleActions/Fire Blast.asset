@@ -68,7 +68,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3401c9820cbc6d94695c943c42e23779, type: 3}
     volume: 1
     pitch: 1
+    foldout: 1
   blastExplodeSound:
     clip: {fileID: 8300000, guid: 2c506cdd4a02c224f8da14c2065b11e6, type: 3}
     volume: 1
     pitch: 1
+    foldout: 0

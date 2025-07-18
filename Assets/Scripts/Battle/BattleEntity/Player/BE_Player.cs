@@ -8,6 +8,9 @@ namespace Player_Battle
 {
     public class BE_Player : BattleEntity
     {
+        [Header("Stats")]
+        [SerializeField] float m_maxHp = 200.0f;
+
         [Header("Summon Ally")]
         [SerializeField] Player_BA_SummonAlly summonAllyAction;
 
@@ -18,17 +21,13 @@ namespace Player_Battle
         [Header("Debug")]
         [SerializeField] PlayerBattleAction nextAction;
         [SerializeField] BattleEntity nextActionTarget;
-        public override float maxHp => GlobalManager.Instance.playerStats.maxHp;
-        public override float hp
-        {
-            get => GlobalManager.Instance.playerStats.hp;
-            protected set => GlobalManager.Instance.playerStats.hp = value;
-        }
+        public override float maxHp => m_maxHp;
+        public override float hp { get; protected set; }
         public PlayerElementMode elementMode { get; private set; } = PlayerElementMode.None;
         public readonly List<BattleEntity> alliesAvailable = new();
         public override IEnumerator<float> OnBattleStart()
         {
-            foreach (var i in GlobalManager.Instance.playerStats.unlockedAllies) alliesAvailable.Add(i);
+            foreach (var i in GlobalManager.Instance.unlockedAllies) alliesAvailable.Add(i);
             if (summonAllyAction.CheckRequirements(this, out string falseReason))
             {
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(summonAllyAction.Act(this)));

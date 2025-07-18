@@ -4,7 +4,8 @@ using Player_Field;
 
 public abstract class Interaction : MonoBehaviour
 {
-    public abstract string interactText { get; }
+    [SerializeField] string m_interactText;
+    public string interactText => m_interactText;
     public virtual Vector2 interactPosition => transform.position;
     Player m_player;
     protected Player player

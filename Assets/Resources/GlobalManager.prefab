@@ -117,23 +117,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12f1af9a80b95041a177202ece49a9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats:
-    maxHp: 200
-    hp: 200
-    unlockedActions:
-    - {fileID: 11400000, guid: 7ccab95a51185c24fa68b99ed6586d1c, type: 2}
-    - {fileID: 11400000, guid: 9be52e6ed23517a4b99310f40e5ffd7e, type: 2}
-    - {fileID: 11400000, guid: 958d01f4572f3c64495f1acf2ddb0414, type: 2}
-    - {fileID: 11400000, guid: 4203f346ca4573a498806abb2360f6b7, type: 2}
-    - {fileID: 11400000, guid: aa9c3c03511f3c844b94d04c3c0ab018, type: 2}
-    - {fileID: 11400000, guid: 11f3d9a01f6ad4942bbe62e8740625e1, type: 2}
-    - {fileID: 11400000, guid: e996f03d9a1644d46b2c52ff1ed6c835, type: 2}
-    - {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
-    unlockedAllies:
-    - {fileID: 4519304254923265912, guid: abd6239a39a1bd0429c4576db5dc09d0, type: 3}
-    - {fileID: 4519304254923265912, guid: d7c8ceff75a11d74982e1a54c23ed818, type: 3}
-    - {fileID: 4519304254923265912, guid: 53aeeb694a632f84b89ca9c486a00009, type: 3}
-    - {fileID: 4519304254923265912, guid: 851345f4ce1735648abea8969cc0f115, type: 3}
+  party:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  unlockedActions:
+  - {fileID: 11400000, guid: e996f03d9a1644d46b2c52ff1ed6c835, type: 2}
+  - {fileID: 11400000, guid: 7ccab95a51185c24fa68b99ed6586d1c, type: 2}
+  - {fileID: 11400000, guid: 9be52e6ed23517a4b99310f40e5ffd7e, type: 2}
+  - {fileID: 11400000, guid: 958d01f4572f3c64495f1acf2ddb0414, type: 2}
+  - {fileID: 11400000, guid: aa9c3c03511f3c844b94d04c3c0ab018, type: 2}
+  - {fileID: 11400000, guid: 4203f346ca4573a498806abb2360f6b7, type: 2}
+  - {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
+  - {fileID: 11400000, guid: 11f3d9a01f6ad4942bbe62e8740625e1, type: 2}
+  unlockedAllies:
+  - {fileID: 4519304254923265912, guid: 53aeeb694a632f84b89ca9c486a00009, type: 3}
+  - {fileID: 4519304254923265912, guid: d7c8ceff75a11d74982e1a54c23ed818, type: 3}
+  - {fileID: 4519304254923265912, guid: 851345f4ce1735648abea8969cc0f115, type: 3}
   targetTexture: {fileID: 8400000, guid: eab66e17222c71f49b69e718d3c07734, type: 2}
   circleOutImage: {fileID: 8606213470580409647}
 --- !u!1 &6368560090067224586

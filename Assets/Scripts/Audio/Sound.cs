@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -17,11 +19,11 @@ public class Sound
 public class Sound_Drawer : PropertyDrawer
 {
     AudioSource testSource;
-    bool foldout = false;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        property.FindPropertyRelative("foldout").boolValue = EditorGUILayout.Foldout(foldout, label);
-        if (property.FindPropertyRelative("foldout").boolValue)
+        SerializedProperty foldout = property.FindPropertyRelative("foldout");
+        foldout.boolValue = EditorGUILayout.Foldout(foldout.boolValue, label);
+        if (foldout.boolValue)
         {
             SerializedProperty clipProperty = property.FindPropertyRelative("clip");
             SerializedProperty volumeProperty = property.FindPropertyRelative("volume");

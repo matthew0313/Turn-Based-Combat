@@ -6,14 +6,25 @@ using System;
 public class BattleInteraction : Interaction, ISavable
 {
     [SerializeField] Animator anim;
-    [SerializeField] BattleData battleData;
+    [SerializeField] BattleEntity[] enemies = new BattleEntity[BattleManager.maxEnemySide];
+    [SerializeField] Sound music;
     [SerializeField] SceneTransition transition = SceneTransition.CircleOut;
     [SerializeField] SaveID id;
     bool completed = false;
-    public override string interactText => "싸우기";
     protected override bool canInteract => !completed;
     public override void OnInteract()
     {
+        BattleData battleData = new();
+        battleData.playerSide[0] = player.battleEntity;
+        for(int i = 0; i < BattleManager.maxPlayerSide - 1; i++)
+        {
+            battleData.playerSide[i + 1] = GlobalManager.Instance.party[i];
+        }
+        for(int i = 0; i < BattleManager.maxEnemySide; i++)
+        {
+            battleData.enemySide[i] = enemies[i];
+        }
+        battleData.music = music;
         battleData.onVictory = GetOnVictory();
         battleData.onLoss = GetOnLoss();
         GlobalManager.Instance.EnterBattle(battleData, transition);

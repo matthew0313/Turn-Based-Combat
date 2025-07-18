@@ -28,7 +28,10 @@ public class GlobalManager : MonoBehaviour
             return instance;
         }
     }
-    public PlayerStats playerStats;
+    
+    public BattleEntity[] party { get; private set; } = new BattleEntity[BattleManager.maxPlayerSide-1];
+    public List<PlayerBattleAction> unlockedActions { get; private set; } = new();
+    public List<BattleEntity> unlockedAllies { get; private set; } = new();
 
     [Header("Scene Switching")]
     [SerializeField] RenderTexture targetTexture;
@@ -69,17 +72,26 @@ public class GlobalManager : MonoBehaviour
     {
         SwitchScene($"Stage{stageIndex}", transition, onSceneLoad);
     }
+    public Action onPartyChange;
+    public void ChangePartyMember(int partySlotIndex, BattleEntity entity)
+    {
+        if (partySlotIndex < 0 || partySlotIndex >= party.Length) return;
+    }
     public SaveData SaveGame()
     {
         if (StageManager.Instance == null) return null;
         SaveData data = new();
-        data.playerStats = playerStats;
+        data.unlockedActions = unlockedActions;
+        data.unlockedAllies = unlockedAllies;
+        data.unlockedActions = unlockedActions;
         StageManager.Instance.Save(data);
         return data;
     }
     public void LoadGame(SaveData data, SceneTransition transition)
     {
-        playerStats = data.playerStats;
+        unlockedActions = data.unlockedActions;
+        unlockedAllies = data.unlockedAllies;
+        unlockedActions = data.unlockedActions;
         EnterStage(data.stageIndex, transition, () =>
         {
             StageManager.Instance.Load(data);

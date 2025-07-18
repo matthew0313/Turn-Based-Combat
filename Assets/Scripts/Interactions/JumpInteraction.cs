@@ -6,7 +6,6 @@ using MEC;
 
 public class JumpInteraction : Interaction
 {
-    public override string interactText => "도약하기";
     [SerializeField] Animator anim;
     [SerializeField] float jumpDuration = 1.0f;
     [SerializeField] Transform jumpTarget;

@@ -7,8 +7,6 @@ using AnimatorCutscene;
 public class CutsceneInteraction : Interaction
 {
     [SerializeField] Cutscene cutscene;
-    public override string interactText => "대화하기";
-
     public override void OnInteract()
     {
         cutscene.Play();

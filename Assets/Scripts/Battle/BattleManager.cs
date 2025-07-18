@@ -40,7 +40,6 @@ public class BattleManager : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] Sound cardSwitchSound;
-    [SerializeField] Sound targetSwitchSound, confirmSound, cancelSound, invalidSound;
 
     [Header("Fast Play")]
     [SerializeField] float fastPlaySpeed = 10.0f;
@@ -57,7 +56,6 @@ public class BattleManager : MonoBehaviour
     {
         if (!battleInitiated && debug)
         {
-            GlobalManager.Instance.playerStats.hp = GlobalManager.Instance.playerStats.maxHp;
             InitiateBattle(debugBattleData);
         }
     }
@@ -77,12 +75,12 @@ public class BattleManager : MonoBehaviour
 
         battleInitiated = true;
         AudioManager.Instance.ChangeMusic(data.music);
-        for(int i = 0; i < Mathf.Min(data.playerSide.Count, maxPlayerSide); i++)
+        for(int i = 0; i < maxPlayerSide; i++)
         {
             if (data.playerSide[i] == null) continue;
             SetPlayerSide(i, data.playerSide[i]);
         }
-        for(int i = 0; i < Mathf.Min(data.enemySide.Count, maxEnemySide); i++)
+        for(int i = 0; i < maxEnemySide; i++)
         {
             if (data.enemySide[i] == null) continue;
             SetEnemySide(i, data.enemySide[i]);
@@ -230,15 +228,15 @@ public class BattleManager : MonoBehaviour
             battleActions[i] = null;
             if (rand <= legendaryChance)
             {
-                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Legendary);
+                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Legendary);
             }
             if (battleActions[i] == null && rand <= legendaryChance + rareChance)
             {
-                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Rare);
+                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Rare);
             }
             if (battleActions[i] == null)
             {
-                battleActions[i] = GlobalManager.Instance.playerStats.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Common);
+                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Common);
             }
             if (battleActions[i] == null)
             {
@@ -272,12 +270,12 @@ public class BattleManager : MonoBehaviour
             }
             if (InputManager.Instance.Select.triggered && selectedCardIndex != -1)
             {
-                AudioManager.Instance.PlaySound(confirmSound);
+                AudioManager.Instance.PlaySound("Confirm");
                 Timing.RunCoroutine(SelectingTarget(actor, battleActions[selectedCardIndex], onFinish)); yield break;
             }
             if (InputManager.Instance.PassTurn.triggered)
             {
-                AudioManager.Instance.PlaySound(confirmSound);
+                AudioManager.Instance.PlaySound("Confirm");
                 UI.HideCards();
                 UI.DeselectCard();
                 UI.ShowText("플레이어가 턴을 스킵합니다.");
@@ -293,7 +291,7 @@ public class BattleManager : MonoBehaviour
         if (!selectedAction.CheckRequirements(actor, out string falseReason))
         {
             UI.ShowText(falseReason);
-            AudioManager.Instance.PlaySound(invalidSound);
+            AudioManager.Instance.PlaySound("Invalid");
             Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
         }
         switch (selectedAction.targetSelection)
@@ -317,7 +315,7 @@ public class BattleManager : MonoBehaviour
                 if (targets.Count == 0)
                 {
                     UI.ShowText("타깃이 없습니다.");
-                    AudioManager.Instance.PlaySound(invalidSound);
+                    AudioManager.Instance.PlaySound("Invalid");
                     Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
                 }
                 foreach (var i in targets) UI.ShowMark(i);
@@ -329,13 +327,13 @@ public class BattleManager : MonoBehaviour
                         UI.HideMarks();
                         UI.HideCards();
                         UI.DeselectCard();
-                        AudioManager.Instance.PlaySound(confirmSound);
+                        AudioManager.Instance.PlaySound("Confirm");
                         onFinish?.Invoke(selectedAction); yield break;
                     }
                     if (InputManager.Instance.Cancel.triggered)
                     {
                         UI.HideMarks();
-                        AudioManager.Instance.PlaySound(cancelSound);
+                        AudioManager.Instance.PlaySound("Cancel");
                         Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
                     }
                 }
@@ -351,7 +349,7 @@ public class BattleManager : MonoBehaviour
                 if(targets.Count == 0)
                 {
                     UI.ShowText("타깃이 없습니다.");
-                    AudioManager.Instance.PlaySound(invalidSound);
+                    AudioManager.Instance.PlaySound("Invalid");
                     Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
                 }
                 int selected = 0;
@@ -362,13 +360,13 @@ public class BattleManager : MonoBehaviour
                     if(InputManager.Instance.SelectUp.triggered && selected < targets.Count - 1)
                     {
                         UI.HideMarks();
-                        AudioManager.Instance.PlaySound(targetSwitchSound);
+                        AudioManager.Instance.PlaySound("Switch");
                         UI.ShowMark(targets[++selected]);
                     }
                     if (InputManager.Instance.SelectDown.triggered && selected > 0)
                     {
                         UI.HideMarks();
-                        AudioManager.Instance.PlaySound(targetSwitchSound);
+                        AudioManager.Instance.PlaySound("Switch");
                         UI.ShowMark(targets[--selected]);
                     }
                     if (InputManager.Instance.Select.triggered)
@@ -377,13 +375,13 @@ public class BattleManager : MonoBehaviour
                         UI.HideCards();
                         UI.DeselectCard();
                         selectedAction.target = targets[selected];
-                        AudioManager.Instance.PlaySound(confirmSound);
+                        AudioManager.Instance.PlaySound("Confirm");
                         onFinish?.Invoke(selectedAction); yield break;
                     }
                     if (InputManager.Instance.Cancel.triggered)
                     {
                         UI.HideMarks();
-                        AudioManager.Instance.PlaySound(cancelSound);
+                        AudioManager.Instance.PlaySound("Cancel");
                         Timing.RunCoroutine(SelectingCard(actor, onFinish)); yield break;
                     }
                 }
@@ -431,8 +429,8 @@ public enum Alliance
 [System.Serializable]
 public class BattleData
 {
-    public List<BattleEntity> playerSide = new();
-    public List<BattleEntity> enemySide = new();
+    public BattleEntity[] playerSide = new BattleEntity[BattleManager.maxPlayerSide];
+    public BattleEntity[] enemySide = new BattleEntity[BattleManager.maxEnemySide];
     public Sound music;
 
     public Action onVictory, onLoss;

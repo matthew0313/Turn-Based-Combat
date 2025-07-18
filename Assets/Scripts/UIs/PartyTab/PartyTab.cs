@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class PartyTab : Tab
 {
-
+    [SerializeField] PartySlotUI slotUI;
 }
