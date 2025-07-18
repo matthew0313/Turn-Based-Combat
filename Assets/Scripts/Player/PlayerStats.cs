@@ -7,6 +7,7 @@ public class PlayerStats
 {
     public float maxHp;
     public float hp;
+    public BattleEntity[] party = new BattleEntity[3];
     public List<PlayerBattleAction> unlockedActions = new();
     public List<BattleEntity> unlockedAllies = new();
 }

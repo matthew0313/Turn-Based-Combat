@@ -10,7 +10,9 @@ public class StageManager : MonoBehaviour
     public StageManager() => Instance = this;
 
     [SerializeField] int m_stageIndex = 0;
+    [SerializeField] StageUI m_UI;
     public int stageIndex => m_stageIndex;
+    public StageUI UI => m_UI;
 
     List<ISavable> savables;
     private void Awake()
