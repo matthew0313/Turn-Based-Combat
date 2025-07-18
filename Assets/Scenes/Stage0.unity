@@ -930,7 +930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8659782729b4445a9a3e140e23448b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipPart: {fileID: 916684757}
   moveSpeed: 5
 --- !u!114 &235602960
 MonoBehaviour:
@@ -1799,7 +1798,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactText: "\uB3C4\uC57D\uD558\uAE30"
   anim: {fileID: 651806362}
-  jumpDuration: 0.25
+  jumpDuration: 0.5
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 10.829205
+      outSlope: 10.829205
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.077777795
+    - serializedVersion: 3
+      time: 0.5
+      value: 2
+      inSlope: 0.083084285
+      outSlope: 0.083084285
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -8.4109
+      outSlope: -8.4109
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.088888764
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   jumpTarget: {fileID: 1681745392}
 --- !u!1 &664809413
 GameObject:
@@ -7113,7 +7145,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactText: "\uB3C4\uC57D\uD558\uAE30"
   anim: {fileID: 1681745393}
-  jumpDuration: 0.25
+  jumpDuration: 0.5
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4
+      outSlope: 4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4
+      outSlope: -4
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   jumpTarget: {fileID: 651806361}
 --- !u!1 &1713985623
 GameObject:
