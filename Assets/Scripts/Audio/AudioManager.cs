@@ -16,12 +16,14 @@ namespace AudioManagement
             {
                 if(instance == null)
                 {
-                    instance = new GameObject("AudioManager").AddComponent<AudioManager>();
+                    instance = Instantiate(Resources.Load<AudioManager>("AudioManager"));
                     DontDestroyOnLoad(instance);
                 }
                 return instance;
             }
         }
+
+        [SerializeField] List<KeySoundPair> presetSounds;
 
         readonly Pooler<AudioSource> audioSourcePool = new(() =>
         {
@@ -54,6 +56,12 @@ namespace AudioManagement
                 }
             }
             foreach (var i in removeQueue) playing.Remove(i); removeQueue.Clear();
+        }
+        public PlayingAudio PlaySound(string key, VolumeGroup volumeGroup = VolumeGroup.None)
+        {
+            Sound sound = presetSounds.Find(item => item.key == key).sound;
+            if (sound != null) return PlaySound(sound, volumeGroup);
+            else return null;
         }
         public PlayingAudio PlaySound(Sound sound, VolumeGroup volumeGroup = VolumeGroup.None)
         {
@@ -94,6 +102,12 @@ namespace AudioManagement
                 else music = null;
             }
         }
+    }
+    [Serializable]
+    public class KeySoundPair
+    {
+        public string key;
+        public Sound sound = new();
     }
     [Serializable, Flags]
     public enum VolumeGroup

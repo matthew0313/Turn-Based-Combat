@@ -9,6 +9,8 @@ public class Sound
     public AudioClip clip;
     public float volume = 1.0f;
     public float pitch = 1.0f;
+
+    [HideInInspector] public bool foldout = false;
 }
 #if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(Sound))]
@@ -18,8 +20,8 @@ public class Sound_Drawer : PropertyDrawer
     bool foldout = false;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        foldout = EditorGUILayout.Foldout(foldout, label);
-        if (foldout)
+        property.FindPropertyRelative("foldout").boolValue = EditorGUILayout.Foldout(foldout, label);
+        if (property.FindPropertyRelative("foldout").boolValue)
         {
             SerializedProperty clipProperty = property.FindPropertyRelative("clip");
             SerializedProperty volumeProperty = property.FindPropertyRelative("volume");

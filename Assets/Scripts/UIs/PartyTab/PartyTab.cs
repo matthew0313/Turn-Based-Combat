@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuTab : Tab
+public class PartyTab : Tab
 {
 
 }
