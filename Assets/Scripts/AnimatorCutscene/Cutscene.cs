@@ -16,7 +16,8 @@ namespace AnimatorCutscene
     [RequireComponent(typeof(Animator))]
     public class Cutscene : MonoBehaviour
     {
-        protected Animator anim;
+        public Animator anim { get; private set; }
+
         readonly int playID = Animator.StringToHash("Play");
 
         [SerializeField] CinemachineCamera[] cinemachineCameras;

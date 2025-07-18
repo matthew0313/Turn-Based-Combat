@@ -29,9 +29,9 @@ public class GlobalManager : MonoBehaviour
         }
     }
     
-    public BattleEntity[] party { get; private set; } = new BattleEntity[BattleManager.maxPlayerSide-1];
-    public List<PlayerBattleAction> unlockedActions { get; private set; } = new();
-    public List<BattleEntity> unlockedAllies { get; private set; } = new();
+    public BattleEntity[] party = new BattleEntity[BattleManager.maxPlayerSide-1];
+    public List<PlayerBattleAction> unlockedActions = new();
+    public List<BattleEntity> unlockedAllies = new();
 
     [Header("Scene Switching")]
     [SerializeField] RenderTexture targetTexture;

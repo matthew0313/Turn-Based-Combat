@@ -47,7 +47,7 @@ namespace Player_Battle
             target.GetDamage(new()
             {
                 attacker = actor,
-                element = Element.Physical,
+                element = Element.Fire,
                 amount = damagePerSlash * (actor.elementMode == PlayerElementMode.None ? noModeMultiplier : 1.0f) * actor.attackMultiplier
             });
         }

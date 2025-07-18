@@ -206,13 +206,7 @@ MonoBehaviour:
   isStunned: 0
   m_maxHp: 50
   affinities:
-    table:
-    - element: 2
-      affinity: 5
-    - element: 3
-      affinity: 1
-    - element: 4
-      affinity: 2
+    table: []
   attackDamage: 4
   burnDamage: 3
   burnTurns: 2

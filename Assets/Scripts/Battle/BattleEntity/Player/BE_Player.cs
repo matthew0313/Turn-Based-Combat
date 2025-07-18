@@ -25,6 +25,10 @@ namespace Player_Battle
         public override float hp { get; protected set; }
         public PlayerElementMode elementMode { get; private set; } = PlayerElementMode.None;
         public readonly List<BattleEntity> alliesAvailable = new();
+        private void Awake()
+        {
+            hp = maxHp;
+        }
         public override IEnumerator<float> OnBattleStart()
         {
             foreach (var i in GlobalManager.Instance.unlockedAllies) alliesAvailable.Add(i);

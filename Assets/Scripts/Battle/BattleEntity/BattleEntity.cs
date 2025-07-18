@@ -198,11 +198,11 @@ public abstract class BattleEntity : MonoBehaviour
 [System.Serializable]
 public enum Element
 {
-    None = 0,
-    Physical = 1,
-    Fire = 2,
-    Water = 3,
-    Grass = 4
+    Water = 0,
+    Fire = 1,
+    Grass = 2,
+    Earth = 3,
+    Electricity = 4,
 }
 [System.Serializable]
 public struct DamageInfo

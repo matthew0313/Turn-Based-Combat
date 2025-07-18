@@ -17,10 +17,10 @@ public class TestCutscene : Cutscene, ISavable
     public void Save(SaveData data)
     {
         data.stageElements[id.value] = new();
-        data.stageElements[id.value].bools["Talked"] = anim.GetBool(talkedID);
+        data.stageElements[id.value].bools["talked"] = anim.GetBool(talkedID);
     }
     public void Load(SaveData data)
     {
-        anim.SetBool(talkedID, data.stageElements[id.value].bools["Talked"]);
+        anim.SetBool(talkedID, data.stageElements[id.value].bools["talked"]);
     }
 }

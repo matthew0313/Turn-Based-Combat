@@ -10,8 +10,8 @@ using UnityEngine.UI;
 public class BattleManager_UI : MonoBehaviour
 {
     [Header("Element icons")]
-    [SerializeField] Sprite physicalSprite;
-    [SerializeField] Sprite fireSprite, waterSprite, grassSprite;
+    [SerializeField] Sprite waterSprite;
+    [SerializeField] Sprite fireSprite, grassSprite, earthSprite, electricitySprite;
 
     [Header("Indicators")]
     [SerializeField] DamageIndicator damageIndicatorPrefab;
@@ -57,13 +57,13 @@ public class BattleManager_UI : MonoBehaviour
     {
         switch (element)
         {
-            case Element.None: return null;
-            case Element.Physical: return physicalSprite;
-            case Element.Fire: return fireSprite;
             case Element.Water: return waterSprite;
+            case Element.Fire: return fireSprite;
             case Element.Grass: return grassSprite;
-            default: return null;
+            case Element.Earth: return earthSprite;
+            case Element.Electricity: return electricitySprite;
         }
+        return null;
     }
     public void ShowText(string content)
     {

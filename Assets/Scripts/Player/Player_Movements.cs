@@ -30,7 +30,10 @@ namespace Player_Field
         readonly int isMovingID = Animator.StringToHash("IsMoving");
         void UpdateMovement()
         {
-            if (!canMove) return;
+            if (!canMove)
+            {
+                rb.linearVelocity = Vector2.zero; return;
+            }
             Vector2 move = InputManager.Instance.Move.ReadValue<Vector2>();
             if (move.x > 0) flipPart.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             if (move.x < 0) flipPart.localScale = new Vector3(-1.0f, 1.0f, 1.0f);

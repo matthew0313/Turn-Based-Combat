@@ -119,13 +119,7 @@ MonoBehaviour:
   isStunned: 0
   m_maxHp: 50
   affinities:
-    table:
-    - element: 2
-      affinity: 1
-    - element: 3
-      affinity: 2
-    - element: 4
-      affinity: 3
+    table: []
   attackDamage:
     attacker: {fileID: 0}
     element: 4

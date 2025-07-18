@@ -4,7 +4,7 @@ using UnityEngine.Timeline;
 
 namespace AnimatorCutscene
 {
-    public class InvokeEventBehaviour : StateMachineBehaviour
+    public class CutsceneEventBehaviour : StateMachineBehaviour
     {
         [SerializeField] int eventIndex;
         Cutscene cutscene;

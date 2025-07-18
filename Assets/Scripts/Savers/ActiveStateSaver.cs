@@ -10,12 +10,12 @@ public class ActiveStateSaver : MonoBehaviour, ISavable
 
     public void Load(SaveData data)
     {
-        data.stageElements[id.value] = new();
-        data.stageElements[id.value].bools["active"] = saved.activeInHierarchy;
+        saved.SetActive(data.stageElements[id.value].bools["active"]);
     }
 
     public void Save(SaveData data)
     {
-        saved.SetActive(data.stageElements[id.value].bools["active"]);
+        data.stageElements[id.value] = new();
+        data.stageElements[id.value].bools["active"] = saved.activeInHierarchy;
     }
 }

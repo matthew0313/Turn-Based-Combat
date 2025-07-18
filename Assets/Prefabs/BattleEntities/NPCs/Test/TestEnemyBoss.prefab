@@ -117,7 +117,7 @@ MonoBehaviour:
   attackMultiplier: 1
   defenseMultiplier: 1
   isStunned: 0
-  m_maxHp: 200
+  m_maxHp: 1
   affinities:
     table: []
   attackDamage:

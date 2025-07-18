@@ -36,12 +36,12 @@ public class InputManager : MonoBehaviour
     //Battle
     public InputAction PassTurn => inputActions.Battle.PassTurn;
     public InputAction BattleFastPlay => inputActions.Battle.FastPlay;
-    private void Awake()
+    private void OnEnable()
     {
-        inputActions = new();
+        if(inputActions == null) inputActions = new();
         inputActions.Enable();
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         inputActions.Disable();
     }
