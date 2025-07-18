@@ -27,6 +27,7 @@ namespace Player_Battle
         [Header("SFX")]
         [SerializeField] Sound blastFireSound;
         [SerializeField] Sound blastExplodeSound;
+        public override Element abilityElement => Element.Water;
         public override TargetSelection targetSelection => TargetSelection.SingleEnemy;
 
 

@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
     public InputAction Interact => inputActions.Field.Interact;
     public InputAction CutsceneFastPlay => inputActions.Field.CutsceneFastPlay;
     public InputAction PassDialogue => inputActions.Field.PassDialogue;
+    public InputAction PartyTab => inputActions.Field.PartyTab;
 
     //Battle
     public InputAction PassTurn => inputActions.Battle.PassTurn;

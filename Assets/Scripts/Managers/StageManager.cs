@@ -20,6 +20,10 @@ public class StageManager : MonoBehaviour
         savables = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None).OfType<ISavable>().ToList();
         savables.Sort((a, b) => a.sortOrder.CompareTo(b.sortOrder));
     }
+    private void Update()
+    {
+        
+    }
     public void Save(SaveData data)
     {
         foreach (var i in savables) i.Save(data);

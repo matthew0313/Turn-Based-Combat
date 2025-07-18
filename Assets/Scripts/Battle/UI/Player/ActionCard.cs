@@ -19,16 +19,10 @@ public class ActionCard : MonoBehaviour
     [SerializeField] TMP_Text actionText, actionDescText;
     Tween tween;
 
-    readonly int rarityID = Animator.StringToHash("Rarity");
-    int rarity = 0;
-
-    private void OnEnable()
-    {
-        anim.SetInteger(rarityID, rarity);
-    }
+    readonly int elementID = Animator.StringToHash("Element");
     public void Set(PlayerBattleAction battleAction)
     {
-        rarity = (int)battleAction.rarity;
+        anim.SetInteger(elementID, (int)battleAction.abilityElement);
         actionIcon.sprite = battleAction.actionIcon;
         actionText.text = battleAction.actionName;
         actionDescText.text = battleAction.actionDesc;

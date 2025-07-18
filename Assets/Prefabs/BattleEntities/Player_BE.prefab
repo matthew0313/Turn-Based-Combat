@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -315,11 +315,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_anim: {fileID: 5498000447010196919}
   m_entityName: "\uC8FC\uC778\uACF5"
+  m_entityIcon: {fileID: 0}
   m_rotator: {fileID: 3711191108176055807}
   attackMultiplier: 1
   defenseMultiplier: 1
   isStunned: 0
-  summonAllyAction: {fileID: 11400000, guid: 075c8d4afc3e6e644a0fd2b7f6c5a88e, type: 2}
+  m_maxHp: 200
   modeChangeTime:
     timeMode: 1
     seconds: 0.5

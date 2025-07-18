@@ -11,11 +11,10 @@ namespace Player_Battle
         [SerializeField] Sprite m_actionIcon;
         [SerializeField] string m_actionName;
         [SerializeField][TextArea] string m_actionDesc;
-        [SerializeField] ActionRarity m_rarity;
         public Sprite actionIcon => m_actionIcon;
         public string actionName => m_actionName;
         public string actionDesc => m_actionDesc;
-        public ActionRarity rarity => m_rarity;
+        public abstract Element abilityElement { get; }
         public abstract TargetSelection targetSelection { get; }
         [HideInInspector] public BattleEntity target;
         public abstract IEnumerator<float> Act(BE_Player actor);
@@ -36,12 +35,5 @@ namespace Player_Battle
         AllAlly,
         AllAllyExceptSelf,
         All,
-    }
-    [System.Serializable]
-    public enum ActionRarity
-    {
-        Common = 0,
-        Rare = 1,
-        Legendary = 2
     }
 }

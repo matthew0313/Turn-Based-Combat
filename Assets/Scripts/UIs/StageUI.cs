@@ -5,7 +5,13 @@ using AnimatorCutscene;
 
 public class StageUI : MonoBehaviour, ICutsceneCallbackReceiver
 {
-    [SerializeField] Tab currentTab;
+    Tab currentTab;
+    [SerializeField] PartyTab partyTab;
+    public bool isTabOpen => currentTab != null;
+    private void Update()
+    {
+        if (InputManager.Instance.PartyTab.triggered) OpenTab(partyTab);
+    }
     public void OpenTab(Tab tab)
     {
         if (currentTab == tab || tab == null)

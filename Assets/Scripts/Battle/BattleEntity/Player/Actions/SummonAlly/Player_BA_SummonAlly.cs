@@ -15,6 +15,7 @@ namespace Player_Battle
         [SerializeField] string triggerName;
         [SerializeField] UnitTime summonTime;
         [SerializeField] UnitTime summonEndTime;
+        public override Element abilityElement => Element.Fire;
         public override TargetSelection targetSelection => TargetSelection.Self;
         int triggerID;
         private void OnEnable()

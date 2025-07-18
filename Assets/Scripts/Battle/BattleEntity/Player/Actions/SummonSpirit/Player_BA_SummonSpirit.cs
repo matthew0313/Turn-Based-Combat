@@ -24,6 +24,7 @@ namespace Player_Battle
         {
             triggerID = Animator.StringToHash(triggerName);
         }
+        public override Element abilityElement => Element.Fire;
         public override TargetSelection targetSelection => TargetSelection.Self;
         public override IEnumerator<float> Act(BE_Player actor)
         {

@@ -22,10 +22,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] UnitTime battleStartTime;
     [SerializeField] float turnInterval = 0.5f;
 
-    [Header("Odds")]
-    [SerializeField] float legendaryChance = 10.0f;
-    [SerializeField] float rareChance = 30.0f;
-
     [Header("Aliments")]
     [SerializeField] Aliment_BurnData m_burnData;
     [SerializeField] Aliment_DefenseBuffData m_defenseBuffData;
@@ -48,9 +44,14 @@ public class BattleManager : MonoBehaviour
     [SerializeField] bool debug = false;
     [SerializeField] BattleData debugBattleData;
 
+    ControlMachine<float> timeScaleControl;
+    ControlElement<float> fastPlayControl;
+
     private void Awake()
     {
         UI = GetComponent<BattleManager_UI>();
+        timeScaleControl = new(value => Time.timeScale = value, 1.0f);
+        fastPlayControl = new(() => fastPlaySpeed, 0, false);
     }
     private void Start()
     {
@@ -222,31 +223,19 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator<float> SetCards(BE_Player actor, Action<PlayerBattleAction> onFinish)
     {
+        if(GlobalManager.Instance.unlockedActions.Count <= 0)
+        {
+            UI.ShowText("액션이 없어 턴을 스킵합니다.");
+            yield return Timing.WaitForSeconds(1.0f);
+            onFinish?.Invoke(null); yield break;
+        }
+        UI.ShowCards();
         for (int i = 0; i < cardCount; i++)
         {
             float rand = UnityEngine.Random.Range(0, 100.0f);
-            battleActions[i] = null;
-            if (rand <= legendaryChance)
-            {
-                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Legendary);
-            }
-            if (battleActions[i] == null && rand <= legendaryChance + rareChance)
-            {
-                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Rare);
-            }
-            if (battleActions[i] == null)
-            {
-                battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => item.rarity == ActionRarity.Common);
-            }
-            if (battleActions[i] == null)
-            {
-                UI.ShowText("액션이 없어 턴을 스킵합니다.");
-                yield return Timing.WaitForSeconds(1.0f);
-                onFinish?.Invoke(null); yield break;
-            }
+            battleActions[i] = GlobalManager.Instance.unlockedActions.SelectRandom(item => true);
             UI.SetCard(i, battleActions[i]);
         }
-        UI.ShowCards();
         selectedCardIndex = 0;
         UI.SelectCard(0);
         Timing.RunCoroutine(SelectingCard(actor, onFinish));

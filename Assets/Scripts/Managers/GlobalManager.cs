@@ -72,10 +72,23 @@ public class GlobalManager : MonoBehaviour
     {
         SwitchScene($"Stage{stageIndex}", transition, onSceneLoad);
     }
-    public Action onPartyChange;
+    public event Action onPartyChange;
+    public event Action onAllyUnlock;
     public void ChangePartyMember(int partySlotIndex, BattleEntity entity)
     {
         if (partySlotIndex < 0 || partySlotIndex >= party.Length) return;
+        for(int i = 0; i < party.Length; i++)
+        {
+            if (party[i] == entity) party[i] = null;
+        }
+        party[partySlotIndex] = entity;
+        onPartyChange?.Invoke();
+    }
+    public void UnlockAlly(BattleEntity entity)
+    {
+        if (unlockedAllies.Contains(entity)) return;
+        unlockedAllies.Add(entity);
+        onAllyUnlock?.Invoke();
     }
     public SaveData SaveGame()
     {

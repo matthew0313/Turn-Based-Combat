@@ -23,6 +23,7 @@ namespace Player_Battle
         [Header("SFX")]
         [SerializeField] Sound slashSound;
         public override TargetSelection targetSelection => TargetSelection.SingleEnemy;
+        public override Element abilityElement => Element.Fire;
         int triggerID;
         private void OnEnable()
         {

@@ -33,7 +33,11 @@ namespace Player_Field
         }
         private void Update()
         {
-            if (!canInteract) return;
+            if (!canInteract || StageManager.Instance.UI.isTabOpen)
+            {
+                Deselect();
+                return;
+            }
             interactions.Sort((a, b) =>
             {
                 return Vector2.Distance(transform.position, a.transform.position).CompareTo(Vector2.Distance(transform.position, b.transform.position));
@@ -77,7 +81,7 @@ namespace Player_Field
             if (selected != null) Deselect();
         }
 
-        readonly ControlElement<bool> cutsceneCanInteractDisable = new(false, 9999, true);
+        readonly ControlElement<bool> cutsceneCanInteractDisable = new(() => false, 9999, true);
         public void OnCutsceneStart()
         {
             Deselect();

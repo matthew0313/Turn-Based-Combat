@@ -11,9 +11,6 @@ namespace Player_Battle
         [Header("Stats")]
         [SerializeField] float m_maxHp = 200.0f;
 
-        [Header("Summon Ally")]
-        [SerializeField] Player_BA_SummonAlly summonAllyAction;
-
         [Header("Mode Change")]
         [SerializeField] UnitTime modeChangeTime;
         [SerializeField] UnitTime modeChangeEndTime;
@@ -31,7 +28,7 @@ namespace Player_Battle
         }
         public override IEnumerator<float> OnBattleStart()
         {
-            foreach (var i in GlobalManager.Instance.unlockedAllies) alliesAvailable.Add(i);
+            /*foreach (var i in GlobalManager.Instance.unlockedAllies) alliesAvailable.Add(i);
             if (summonAllyAction.CheckRequirements(this, out string falseReason))
             {
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(summonAllyAction.Act(this)));
@@ -40,7 +37,8 @@ namespace Player_Battle
             {
                 BattleManager.Instance.UI.ShowText(falseReason);
                 yield return Timing.WaitForSeconds(1.0f);
-            }
+            }*/
+            yield break;
         }
         protected override IEnumerator<float> OnTurn()
         {

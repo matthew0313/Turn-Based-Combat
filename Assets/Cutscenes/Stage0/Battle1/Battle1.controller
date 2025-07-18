@@ -405,7 +405,6 @@ MonoBehaviour:
   choiceSegment:
     m_options:
     - "\uB108 \uB0B4 \uB3D9\uB8CC\uAC00 \uB3FC\uB77C"
-    - "\uC7A0\uAE50\uB9CC \uAE30\uB2E4\uB824\uBD10"
 --- !u!114 &1919076026901792453
 MonoBehaviour:
   m_ObjectHideFlags: 1

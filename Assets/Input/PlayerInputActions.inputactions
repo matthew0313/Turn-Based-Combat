@@ -212,6 +212,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PartyTab",
+                    "type": "Button",
+                    "id": "e3e3be04-255d-4e34-8bd2-1c5e67bd96ab",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -368,6 +377,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c0843591-30d3-4ae6-a288-b3e2b5b11b0b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PartyTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

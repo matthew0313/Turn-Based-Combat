@@ -45,7 +45,7 @@ public class ControlMachine<T>
             });
             if (controls[0].enabled)
             {
-                setter.Invoke(controls[0].value); return;
+                setter.Invoke(controls[0].valueGetter.Invoke()); return;
             }
         }
         setter.Invoke(defaultValue);
@@ -53,7 +53,7 @@ public class ControlMachine<T>
 }
 public class ControlElement<T>
 {
-    public readonly T value;
+    public readonly Func<T> valueGetter;
     public readonly int priority;
     bool m_enabled = false;
     public bool enabled
@@ -66,9 +66,9 @@ public class ControlElement<T>
         }
     }
     public Action onControlElementUpdate;
-    public ControlElement(T value, int priority, bool enabled = false)
+    public ControlElement(Func<T> valueGetter, int priority, bool enabled = false)
     {
-        this.value = value;
+        this.valueGetter = valueGetter;
         this.priority = priority;
         m_enabled = enabled;
     }

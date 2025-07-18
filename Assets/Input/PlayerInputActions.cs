@@ -298,6 +298,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PartyTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3e3be04-255d-4e34-8bd2-1c5e67bd96ab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -454,6 +463,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0843591-30d3-4ae6-a288-b3e2b5b11b0b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PartyTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -522,6 +542,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Field_Move = m_Field.FindAction("Move", throwIfNotFound: true);
         m_Field_CutsceneFastPlay = m_Field.FindAction("CutsceneFastPlay", throwIfNotFound: true);
         m_Field_PassDialogue = m_Field.FindAction("PassDialogue", throwIfNotFound: true);
+        m_Field_PartyTab = m_Field.FindAction("PartyTab", throwIfNotFound: true);
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_PassTurn = m_Battle.FindAction("PassTurn", throwIfNotFound: true);
@@ -763,6 +784,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Field_Move;
     private readonly InputAction m_Field_CutsceneFastPlay;
     private readonly InputAction m_Field_PassDialogue;
+    private readonly InputAction m_Field_PartyTab;
     /// <summary>
     /// Provides access to input actions defined in input action map "Field".
     /// </summary>
@@ -790,6 +812,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Field/PassDialogue".
         /// </summary>
         public InputAction @PassDialogue => m_Wrapper.m_Field_PassDialogue;
+        /// <summary>
+        /// Provides access to the underlying input action "Field/PartyTab".
+        /// </summary>
+        public InputAction @PartyTab => m_Wrapper.m_Field_PartyTab;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -828,6 +854,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PassDialogue.started += instance.OnPassDialogue;
             @PassDialogue.performed += instance.OnPassDialogue;
             @PassDialogue.canceled += instance.OnPassDialogue;
+            @PartyTab.started += instance.OnPartyTab;
+            @PartyTab.performed += instance.OnPartyTab;
+            @PartyTab.canceled += instance.OnPartyTab;
         }
 
         /// <summary>
@@ -851,6 +880,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @PassDialogue.started -= instance.OnPassDialogue;
             @PassDialogue.performed -= instance.OnPassDialogue;
             @PassDialogue.canceled -= instance.OnPassDialogue;
+            @PartyTab.started -= instance.OnPartyTab;
+            @PartyTab.performed -= instance.OnPartyTab;
+            @PartyTab.canceled -= instance.OnPartyTab;
         }
 
         /// <summary>
@@ -1076,6 +1108,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPassDialogue(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PartyTab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPartyTab(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Battle" which allows adding and removing callbacks.

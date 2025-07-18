@@ -9,9 +9,11 @@ public abstract class BattleEntity : MonoBehaviour
 {
     [SerializeField] Animator m_anim;
     [SerializeField] string m_entityName;
+    [SerializeField] Sprite m_entityIcon;
     [SerializeField] Transform m_rotator;
     public Animator anim => m_anim;
     public string entityName => m_entityName;
+    public Sprite entityIcon => m_entityIcon;
     public Transform rotator => m_rotator;
     public abstract float maxHp { get; }
     public abstract float hp { get; protected set; }

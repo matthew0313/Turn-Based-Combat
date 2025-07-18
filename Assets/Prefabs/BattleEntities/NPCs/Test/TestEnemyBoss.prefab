@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_anim: {fileID: 7839659907159916110}
   m_entityName: "\uBB34\uC18D\uC131 \uD14C\uC2A4\uD2B8 \uC801"
+  m_entityIcon: {fileID: 0}
   m_rotator: {fileID: 2862627128942756084}
   attackMultiplier: 1
   defenseMultiplier: 1
@@ -413,7 +414,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

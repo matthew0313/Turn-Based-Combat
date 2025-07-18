@@ -28,7 +28,7 @@ namespace Player_Battle
         [SerializeField] Sound blastFireSound;
         [SerializeField] Sound blastExplodeSound;
         public override TargetSelection targetSelection => TargetSelection.SingleEnemy;
-
+        public override Element abilityElement => Element.Grass;
 
         int triggerID;
         private void OnEnable()

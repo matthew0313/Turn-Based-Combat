@@ -12,7 +12,6 @@ namespace Player_Field
         Player origin;
         Rigidbody2D rb;
 
-        [SerializeField] Transform flipPart;
         [SerializeField] float moveSpeed = 5.0f;
 
         bool canMove = true;
@@ -28,16 +27,26 @@ namespace Player_Field
             UpdateMovement();
         }
         readonly int isMovingID = Animator.StringToHash("IsMoving");
+        readonly int directionID = Animator.StringToHash("Direction");
         void UpdateMovement()
         {
-            if (!canMove)
+            if (!canMove || StageManager.Instance.UI.isTabOpen)
             {
                 rb.linearVelocity = Vector2.zero; return;
             }
             Vector2 move = InputManager.Instance.Move.ReadValue<Vector2>();
-            if (move.x > 0) flipPart.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            if (move.x < 0) flipPart.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-            origin.anim.SetBool(isMovingID, move.x != 0 || move.y != 0);
+            Debug.Log(move);
+            if(Mathf.Abs(move.x) >= Mathf.Abs(move.y))
+            {
+                if (move.x > 0) origin.anim.SetInteger(directionID, 0);
+                if (move.x < 0) origin.anim.SetInteger(directionID, 2);
+            }
+            else
+            {
+                if (move.y > 0) origin.anim.SetInteger(directionID, 1);
+                if (move.y < 0) origin.anim.SetInteger(directionID, 3);
+            }
+            origin.anim.SetBool(isMovingID, move.magnitude > 0.05f);
             rb.linearVelocity = move * moveSpeed;
         }
         private void OnEnable()
@@ -61,7 +70,7 @@ namespace Player_Field
             transform.position = data.playerPos;
         }
 
-        readonly ControlElement<bool> cutsceneCanMoveDisable = new(false, 9999, true);
+        readonly ControlElement<bool> cutsceneCanMoveDisable = new(() => false, 9999, true);
         public void OnCutsceneStart()
         {
             canMoveControl.AddControl(cutsceneCanMoveDisable);
