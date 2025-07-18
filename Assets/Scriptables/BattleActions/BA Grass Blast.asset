@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39853d355933f2428fa7b2813608e14, type: 3}
+  m_Name: BA Grass Blast
+  m_EditorClassIdentifier: 
+  m_actionName: "\uD478\uB987\uD478\uB987"
+  m_card: {fileID: 8614170600361975666, guid: d4bc46db1fded834c8f4326aef0f8164, type: 3}
+  target: {fileID: 0}
+  damage: 30
+  heal: 10
+  endTime:
+    timeMode: 0
+    seconds: 1
+    frames: 60

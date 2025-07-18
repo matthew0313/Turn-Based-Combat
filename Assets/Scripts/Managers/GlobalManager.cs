@@ -80,7 +80,7 @@ public class GlobalManager : MonoBehaviour
     }
     public void UnlockAlly(BattleEntity entity)
     {
-        if (unlockedAllies.Contains(entity)) return;
+        if (entity == null || unlockedAllies.Contains(entity)) return;
         unlockedAllies.Add(entity);
         onAllyUnlock?.Invoke();
     }

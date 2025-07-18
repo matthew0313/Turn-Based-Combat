@@ -120,6 +120,7 @@ public class PartyTab : Tab
     {
         if (index < 0 || index >= memberUIs.Count || selectedMember == memberUIs[index]) return;
         if (selectedMember != null) selectedMember.OnDeselect();
+        selectedMemberIndex = index;
         selectedMember = memberUIs[index];
         selectedMember.OnSelect();
     }

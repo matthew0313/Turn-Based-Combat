@@ -14,6 +14,5 @@ public class BackgroundLayer : MonoBehaviour
     {
         int divisor = Mathf.FloorToInt(rectTransform.rect.width) * (segments - 1);
         transform.localPosition = new Vector2(Mathf.Repeat((Mathf.Repeat(Camera.main.transform.position.x * multiplier, divisor) + divisor), divisor), 0.0f);
-        Debug.Log(transform.localPosition);
     }
 }

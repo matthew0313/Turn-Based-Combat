@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: 206c226dc3cf5cf4498da211bbf9d852
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4040235889870669195
+    second: Evil_0
+  - first:
+      213: 8945018638152371892
+    second: Evil_1
+  - first:
+      213: 8975904399083553216
+    second: Evil_2
+  - first:
+      213: 5740803780850909530
+    second: Evil_3
+  - first:
+      213: 4049463638494858840
+    second: Evil_4
+  - first:
+      213: -6297377010190171205
+    second: Evil_5
+  - first:
+      213: 4518434988972730640
+    second: Evil_6
+  - first:
+      213: 5558840795827895726
+    second: Evil_7
+  - first:
+      213: -9153001963609868339
+    second: Evil_8
+  - first:
+      213: 4887610019763797593
+    second: Evil_9
+  - first:
+      213: 2043175608417487308
+    second: Evil_10
+  - first:
+      213: -32601471646469719
+    second: Evil_11
+  - first:
+      213: -6475537767284883051
+    second: Evil_12
+  - first:
+      213: -1367570338201796138
+    second: Evil_13
+  - first:
+      213: -8427395938888549852
+    second: Evil_14
+  - first:
+      213: 2685958002957314411
+    second: Evil_15
+  - first:
+      213: 6028939202299295366
+    second: Evil_16
+  - first:
+      213: 769063915978208550
+    second: Evil_17
+  - first:
+      213: -701633241539877249
+    second: Evil_18
+  - first:
+      213: -4185234661937873539
+    second: Evil_19
+  - first:
+      213: 4445000904562675254
+    second: Evil_20
+  - first:
+      213: -4600232463980127288
+    second: Evil_21
+  - first:
+      213: -7039029727075652390
+    second: Evil_22
+  - first:
+      213: 6528787228124758441
+    second: Evil_23
+  - first:
+      213: -3243195218587586259
+    second: Evil_24
+  - first:
+      213: -2272708937796598351
+    second: Evil_25
+  - first:
+      213: 2705887681136978295
+    second: Evil_26
+  - first:
+      213: 6877726050535481831
+    second: Evil_27
+  - first:
+      213: -4887808603269816630
+    second: Evil_28
+  - first:
+      213: 5009477713303880624
+    second: Evil_29
+  - first:
+      213: -5590085502569013789
+    second: Evil_30
+  - first:
+      213: 2515088187235744769
+    second: Evil_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 240
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Evil_0
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 59
+        width: 342
+        height: 332
+      alignment: 9
+      pivot: {x: 0.43886578, y: 0.4701694}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b858680c22dc11830800000000000000
+      internalID: 4040235889870669195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_1
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 60
+        width: 364
+        height: 322
+      alignment: 9
+      pivot: {x: 0.48488474, y: 0.4213986}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4be02540f07132c70800000000000000
+      internalID: 8945018638152371892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_10
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 49
+        width: 302
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc987710461da5c10800000000000000
+      internalID: 2043175608417487308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_14
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 49
+        width: 272
+        height: 302
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42a7af83b00eb0b80800000000000000
+      internalID: -8427395938888549852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_15
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 50
+        width: 364
+        height: 346
+      alignment: 9
+      pivot: {x: 0.47581533, y: 0.38868615}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6963e7a290764520800000000000000
+      internalID: 2685958002957314411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_16
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 33
+        width: 367
+        height: 361
+      alignment: 9
+      pivot: {x: 0.4545732, y: 0.39224282}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686f97503481ba350800000000000000
+      internalID: 6028939202299295366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_19
+      rect:
+        serializedVersion: 2
+        x: 2410
+        y: 49
+        width: 382
+        height: 351
+      alignment: 9
+      pivot: {x: 0.46663392, y: 0.3837985}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7d7a81df3f0be5c0800000000000000
+      internalID: -4185234661937873539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Evil_20
+      rect:
+        serializedVersion: 2
+        x: 2859
+        y: 49
+        width: 312
+        height: 340
+      alignment: 9
+      pivot: {x: 0.42646593, y: 0.39503416}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63e8fb6a5c0dfad30800000000000000
+      internalID: 4445000904562675254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a444f181cf49d714ab58af67bc44ec2f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Evil_0: 4040235889870669195
+      Evil_1: 8945018638152371892
+      Evil_10: 2043175608417487308
+      Evil_11: -32601471646469719
+      Evil_12: -6475537767284883051
+      Evil_13: -1367570338201796138
+      Evil_14: -8427395938888549852
+      Evil_15: 2685958002957314411
+      Evil_16: 6028939202299295366
+      Evil_17: 769063915978208550
+      Evil_18: -701633241539877249
+      Evil_19: -4185234661937873539
+      Evil_2: 8975904399083553216
+      Evil_20: 4445000904562675254
+      Evil_21: -4600232463980127288
+      Evil_22: -7039029727075652390
+      Evil_23: 6528787228124758441
+      Evil_24: -3243195218587586259
+      Evil_25: -2272708937796598351
+      Evil_26: 2705887681136978295
+      Evil_27: 6877726050535481831
+      Evil_28: -4887808603269816630
+      Evil_29: 5009477713303880624
+      Evil_3: 5740803780850909530
+      Evil_30: -5590085502569013789
+      Evil_31: 2515088187235744769
+      Evil_4: 4049463638494858840
+      Evil_5: -6297377010190171205
+      Evil_6: 4518434988972730640
+      Evil_7: 5558840795827895726
+      Evil_8: -9153001963609868339
+      Evil_9: 4887610019763797593
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

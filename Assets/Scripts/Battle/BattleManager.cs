@@ -244,6 +244,10 @@ public class BattleManager : MonoBehaviour
     {
         while (true)
         {
+            if(Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.Q))
+            {
+                Victory(); yield break;
+            }
             yield return Timing.WaitForOneFrame;
             if (InputManager.Instance.SelectRight.triggered && selectedCardIndex < cardCount - 1)
             {
@@ -298,6 +302,7 @@ public class BattleManager : MonoBehaviour
                         UI.DeselectCard();
                         selectedAction.target = enemy;
                         AudioManager.Instance.PlaySound("Confirm");
+                        battleActions[selectedCardIndex] = null;
                         onFinish?.Invoke(selectedAction); yield break;
                     }
                     if (InputManager.Instance.Cancel.triggered)
@@ -333,6 +338,7 @@ public class BattleManager : MonoBehaviour
                         UI.HideCards();
                         UI.DeselectCard();
                         AudioManager.Instance.PlaySound("Confirm");
+                        battleActions[selectedCardIndex] = null;
                         onFinish?.Invoke(selectedAction); yield break;
                     }
                     if (InputManager.Instance.Cancel.triggered)
@@ -377,6 +383,7 @@ public class BattleManager : MonoBehaviour
                         UI.DeselectCard();
                         selectedAction.target = targets[selected];
                         AudioManager.Instance.PlaySound("Confirm");
+                        battleActions[selectedCardIndex] = null;
                         onFinish?.Invoke(selectedAction); yield break;
                     }
                     if (InputManager.Instance.Cancel.triggered)

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7008412969330441016, guid: 8a5b343275d45764294295025786214b, type: 3}
+  m_Sprite: {fileID: -7008412969330441016, guid: 737d32f8b8dc71d48b1add2d8606323e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1318526238348986338}
-  - component: {fileID: 1276760425261805444}
+  - component: {fileID: 708080278645934985}
   - component: {fileID: 5198438733784851277}
   - component: {fileID: 6369414350988539444}
   m_Layer: 0
@@ -155,7 +155,7 @@ Transform:
   - {fileID: 2960550618592700134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1276760425261805444
+--- !u!114 &708080278645934985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,12 +164,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5163714396897452625}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d246f14f81e28247b085cd62daeac89, type: 3}
+  m_Script: {fileID: 11500000, guid: 19616e9e1cb0b584abfff8da5ed84678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_anim: {fileID: 5198438733784851277}
-  m_entityName: "\uBD88 \uC815\uB839"
-  m_entityIcon: {fileID: -7008412969330441016, guid: 8a5b343275d45764294295025786214b, type: 3}
+  m_entityName: "\uD480 \uC815\uB839"
+  m_entityIcon: {fileID: -7008412969330441016, guid: 737d32f8b8dc71d48b1add2d8606323e, type: 3}
   m_rotator: {fileID: 8661475205600609103}
   m_actionCastTime:
     timeMode: 1
@@ -180,11 +180,11 @@ MonoBehaviour:
   m_maxHp: 100
   affinities:
     table:
-    - element: 0
-      affinity: 1
-    - element: 2
+    - element: 3
       affinity: 2
-  fireBlast: {fileID: 11400000, guid: 85d5878a9394bc342bde3ed927ded0aa, type: 2}
+    - element: 1
+      affinity: 1
+  grassBlast: {fileID: 11400000, guid: 01831dc41b370f445a941c99bb306ad3, type: 2}
 --- !u!95 &5198438733784851277
 Animator:
   serializedVersion: 7
@@ -314,11 +314,11 @@ PrefabInstance:
     - target: {fileID: 5111946531689493562, guid: d6f6cb8b20f037f4da2bd77a771aabed, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1276760425261805444}
+      objectReference: {fileID: 708080278645934985}
     - target: {fileID: 8126183802129131077, guid: d6f6cb8b20f037f4da2bd77a771aabed, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1276760425261805444}
+      objectReference: {fileID: 708080278645934985}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
