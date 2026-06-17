@@ -3,8 +3,6 @@ using UnityEngine;
 using Player_Field;
 using DG.Tweening;
 using MEC;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
-using static UnityEngine.UI.Image;
 
 public class JumpInteraction : Interaction
 {

@@ -10,23 +10,12 @@ namespace Player_Field
         public Animator anim => m_anim;
 
 
-        Player_Movements m_movements;
-        public Player_Movements movements
+        public Player_Movements movements;
+        public Player_Interactions interactions;
+        private void Awake()
         {
-            get
-            {
-                if(m_movements == null) m_movements = GetComponent<Player_Movements>();
-                return m_movements;
-            }
-        }
-        Player_Interactions m_interactions;
-        public Player_Interactions interactions
-        {
-            get
-            {
-                if(m_interactions == null) m_interactions = GetComponent<Player_Interactions>();
-                return m_interactions;
-            }
+            movements = GetComponent<Player_Movements>();
+            interactions = GetComponent<Player_Interactions>();
         }
     }
 }

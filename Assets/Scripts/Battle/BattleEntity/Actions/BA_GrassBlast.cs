@@ -13,12 +13,12 @@ public class BA_GrassBlast : BattleAction
     public override TargetSelection targetSelection => TargetSelection.Enemy;
     public override IEnumerator<float> Act(Alliance alliance)
     {
-        var grassSpirit = BattleManager.Instance.GetAllies(alliance).Select(item => item is BE_WaterSpirit);
-        var caster = grassSpirit != null ? grassSpirit : BattleManager.Instance.GetAllies(alliance).First();
-        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom();
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(caster.CastAction(WaterBlast(caster, target))));
+        var grassSpirit = BattleManager.Instance.GetAllies(alliance).Select(item => item is BE_GrassSpirit);
+        var caster = (grassSpirit != null && !grassSpirit.dead) ? grassSpirit : BattleManager.Instance.GetAllies(alliance).First();
+        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom((entity) => !entity.dead);
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(caster.CastAction(GrassBlast(caster, target))));
     }
-    IEnumerator<float> WaterBlast(BattleEntity caster, BattleEntity target)
+    IEnumerator<float> GrassBlast(BattleEntity caster, BattleEntity target)
     {
         target.GetDamage(new()
         {

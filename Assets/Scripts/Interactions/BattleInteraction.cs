@@ -38,7 +38,10 @@ public class BattleInteraction : Interaction, ISavable
             });
         };
     }
-    protected virtual Action GetOnLoss() => null;
+    protected virtual Action GetOnLoss()
+    {
+        return () => { Debug.Log("OnLoss"); GlobalManager.Instance.SwitchScene("GameOver", SceneTransition.CircleOut); };
+    }
     readonly int completedID = Animator.StringToHash("Completed");
     public void Save(SaveData data)
     {

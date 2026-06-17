@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7f096589ce51d468a0dcdc4ca4b8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: BattleScene
+  sceneName: Title
   transition: 1
 --- !u!1 &1299440056
 GameObject:
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC7AC\uC2DC\uB3C4"
+  m_text: "\uD0C0\uC774\uD2C0\uB85C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a47ad92fc90c27b4cb90b6b0d227ba40, type: 2}
   m_sharedMaterial: {fileID: -867531067779623162, guid: a47ad92fc90c27b4cb90b6b0d227ba40, type: 2}

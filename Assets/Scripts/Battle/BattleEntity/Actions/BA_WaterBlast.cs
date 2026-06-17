@@ -15,8 +15,8 @@ public class BA_WaterBlast : BattleAction
     public override IEnumerator<float> Act(Alliance alliance)
     {
         var waterSpirit = BattleManager.Instance.GetAllies(alliance).Select(item => item is BE_WaterSpirit);
-        var caster = waterSpirit != null ? waterSpirit : BattleManager.Instance.GetAllies(alliance).First();
-        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom();
+        var caster = (waterSpirit != null && !waterSpirit.dead) ? waterSpirit : BattleManager.Instance.GetAllies(alliance).First();
+        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom((entity) => !entity.dead);
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(caster.CastAction(WaterBlast(caster, target))));
     }
     IEnumerator<float> WaterBlast(BattleEntity caster, BattleEntity target)

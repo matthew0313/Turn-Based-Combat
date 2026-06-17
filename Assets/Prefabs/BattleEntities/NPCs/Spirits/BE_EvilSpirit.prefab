@@ -177,7 +177,7 @@ MonoBehaviour:
     frames: 35
   attackMultiplier: 1
   defenseMultiplier: 1
-  m_maxHp: 100
+  m_maxHp: 800
   affinities:
     table: []
   fireBlast: {fileID: 11400000, guid: 85d5878a9394bc342bde3ed927ded0aa, type: 2}

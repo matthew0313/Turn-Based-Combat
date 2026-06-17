@@ -115,9 +115,11 @@ public class BattleManager : MonoBehaviour
                 if (playerSide[i] == null || playerSide[i].dead) continue;
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(playerSide[i].OnTurnStart()));
                 CheckDefeat();
+                yield return Timing.WaitForOneFrame;
             }
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnTurnStart()));
             CheckDefeat();
+            yield return Timing.WaitForOneFrame;
 
             bool finished = false;
             BattleAction selectedAction = null;
@@ -133,6 +135,7 @@ public class BattleManager : MonoBehaviour
                 yield return Timing.WaitUntilDone(Timing.RunCoroutine(selectedAction.Act(Alliance.Player)));
             }
             CheckDefeat();
+            yield return Timing.WaitForOneFrame;
             yield return Timing.WaitForSeconds(turnInterval);
 
             for (int i = 0; i < maxPlayerSide; i++)
@@ -143,9 +146,11 @@ public class BattleManager : MonoBehaviour
             }
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnTurnStart()));
             CheckDefeat();
+            yield return Timing.WaitForOneFrame;
 
             yield return Timing.WaitUntilDone(Timing.RunCoroutine(enemy.OnEnemyTurn()));
             CheckDefeat();
+            yield return Timing.WaitForOneFrame;
         }
     }
     void CheckDefeat()
@@ -422,6 +427,7 @@ public class BattleManager : MonoBehaviour
     {
         OnBattleEnd();
         data.onLoss?.Invoke();
+        GlobalManager.Instance.SwitchScene("GameOver", SceneTransition.CircleOut);
     }
     private void OnDestroy()
     {
@@ -441,5 +447,6 @@ public class BattleData
     public BattleEntity enemy;
     public Sound music;
 
-    public Action onVictory, onLoss;
+    public Action onVictory;
+    public Action onLoss;
 }

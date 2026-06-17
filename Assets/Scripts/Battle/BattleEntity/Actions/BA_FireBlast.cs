@@ -14,8 +14,8 @@ public class BA_FireBlast : BattleAction
     public override IEnumerator<float> Act(Alliance alliance)
     {
         var fireSpirit = BattleManager.Instance.GetAllies(alliance).Select(item => item is BE_FireSpirit);
-        var caster = fireSpirit != null ? fireSpirit : BattleManager.Instance.GetAllies(alliance).First();
-        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom();
+        var caster = (fireSpirit != null && !fireSpirit.dead) ? fireSpirit : BattleManager.Instance.GetAllies(alliance).First();
+        var target = alliance == Alliance.Player ? this.target : BattleManager.Instance.GetEnemies(alliance).SelectRandom((entity) => !entity.dead);
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(caster.CastAction(FireBlast(caster, target))));
     }
     IEnumerator<float> FireBlast(BattleEntity caster, BattleEntity target)
