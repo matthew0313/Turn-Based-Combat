@@ -55,7 +55,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _EnableExternalAlpha: 0
-    - _Intensity: 10
+    - _Intensity: 8.409726
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
